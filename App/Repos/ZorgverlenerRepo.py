@@ -6,12 +6,13 @@ class DAL:
     #Aanmaken lijst voor zorgverleners
     zorgverleners = []
 
+    #Aanmaken van zorgverlener
     @staticmethod
     def create_zorgverlener(zorgverlener):
         connection = mysql.connector.connect()
         cursor = connection.cursor()
         qry = """
-        INSERT INTO Zorgverlener (naam, achternaam, email, wachtwoord)
+        INSERT INTO Zorgverlener (name, lastname, email, password)
         VALUES (%s, %s, %s, %s)
         """
         
