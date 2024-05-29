@@ -72,9 +72,6 @@ if __name__ == "__main__": # eerst je database opzetten en dan runnen met python
     deleted_report = read_report(db, 2)
     print(f"Deleted Report: {deleted_report}")  # Should be None if deleted
 
-
-    db.commit()
-
     db.close()
 # @app.get("/persons")
 # hier moet je de database gegevens ophalen met een query get all 
