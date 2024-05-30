@@ -5,6 +5,12 @@ from database import Sessionlocal
 
 app = FastAPI() # standaard webserver runnen met uvicorn --> uvicorn main:app --reload
 
+#Commands:
+#Enviroment= python -m venv env  Starten Enviroment= env\Scripts\activate.bat
+#pip install fastapi uvicorn sqlalchemy pymysql
+
+
+
 @app.get("/")
 def read_root():
     return "hello world"
