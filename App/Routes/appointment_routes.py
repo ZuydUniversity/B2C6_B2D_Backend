@@ -28,4 +28,11 @@ def update_appointment(appointment_id: int, appointment: Appointment):
             sim_data[index] = appointment
             appointment.id = appointment_id
             return appointment
-    raise HTTPException(status_code=404, detail="Appointment not found")   
+    raise HTTPException(status_code=404, detail="Appointment not found")  
+
+@router.delete("/appointments/{appointment_id}", response_model=Appointment)
+def delete_appointment(appointment_id: int):
+    for index, appointment in enumerate(sim_data):
+        if appointment.id == appointment_id:
+            return sim_data.pop(index)
+    raise HTTPException(status_code=404, detail="Appointment not found")    
