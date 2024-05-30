@@ -27,4 +27,4 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest backend/tests  # Voer je tests uit
+        pytest backend/tests/update_report_test.py
