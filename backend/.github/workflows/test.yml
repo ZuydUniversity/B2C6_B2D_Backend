@@ -1,4 +1,4 @@
-name: Groep-3 Unit Test Oefenen
+name: Groep-3 Unit Test oefenen
 
 on:
   push:
@@ -22,9 +22,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Installeer je project afhankelijkheden
+        pip install fastapi uvicorn sqlalchemy pymysql
         pip install pytest pytest-cov  # Installeer pytest en coverage
+        pip install pytest-mock
 
     - name: Run tests
       run: |
-        pytest backend/tests/update_report_test.py
+        pytest backend/tests  # Voer je tests uit
