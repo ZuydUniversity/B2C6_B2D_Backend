@@ -72,3 +72,6 @@ if __name__ == "__main__":
     # print(f"Deleted Report: {deleted_report}")  # Should be None if deleted
 
     db.close()
+
+
+  #even snel iets testen!!!!!
