@@ -20,3 +20,12 @@ def read_appointment(appointment_id: int):
     for appointment in sim_data:
         if appointment.id == appointment_id:
             return appointment
+        
+@router.put("/appointments/{appointment_id}", response_model=Appointment)
+def update_appointment(appointment_id: int, appointment: Appointment):
+    for index, existing_appointment in enumerate(sim_data):
+        if existing_appointment.id == appointment_id:
+            sim_data[index] = appointment
+            appointment.id = appointment_id
+            return appointment
+    raise HTTPException(status_code=404, detail="Appointment not found")   
