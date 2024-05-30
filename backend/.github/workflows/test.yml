@@ -1,8 +1,8 @@
-name: Run tests groep 3
+name: Run tests
 
 on:
   pull_request:
-    branches: ['1-mvp-lokaal-opstellen-team3-mike']
+    branches: ['master']
 
   workflow_dispatch:
 
