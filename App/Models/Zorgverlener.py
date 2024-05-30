@@ -1,3 +1,5 @@
+from Zorgverlener import Zorgverlener
+
 class Zorgverlener:
     
     def CreateZorgverlener(self, _id: int, _name: str, _lastname: str, _email: str, _password: str):
@@ -19,5 +21,5 @@ class Zorgverlener:
     def get_email(self):
         return self.email
 
-    def get_wachtwoord(self):
+    def get_password(self):
         return self.password   
