@@ -27,11 +27,19 @@ jobs:
         pip install pytest pytest-cov pytest-mock
 
     - name: Run tests
+      id: run_tests
       run: pytest backend/tests/update_report_test.py
+
+    - name: Send Slack notification on success
+      if: success()
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data '{"text":"Test succeeded in Groep-3 branch:  $GITHUB_RUN_URL"}' \
+        ${{ secrets.GROEP_DRIE }}
 
     - name: Send Slack notification on failure
       if: failure()
       run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data '{"text":"Test failed in Groep-3 branch: $GITHUB_RUN_URL"}' \
+        --data '{"text":"Test failed in Groep-3 branch:  $GITHUB_RUN_URL"}' \
         ${{ secrets.GROEP_DRIE }}
