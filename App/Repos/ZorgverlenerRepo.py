@@ -1,5 +1,5 @@
 import mysql.connector
-from Zorgverlener import Zorgverlener
+from ..Models.Zorgverlener import Zorgverlener
 
 class ZorgverlenerRepo:
     def __init__(self, connection_string):
