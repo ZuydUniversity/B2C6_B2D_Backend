@@ -29,26 +29,11 @@ jobs:
     - name: Run tests
       run: pytest backend/tests/update_report_test.py
 
-  notify_success:
+  notify:
     runs-on: ubuntu-latest
     needs: test
-    if: success()
     steps:
-    - name: Notify Slack on success
+    - name: Send Slack notification
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
-      with:
-        status: success
-
-  notify_failure:
-    runs-on: ubuntu-latest
-    needs: test
-    if: failure()
-    steps:
-    - name: Notify Slack on failure
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
-      with:
-        status: failure
