@@ -34,3 +34,12 @@ jobs:
     - name: Run tests
       run: |
         pytest backend/tests/update_report_test.py  # Voer je tests uit
+        slackNotification:
+          name: Slack Notification
+          runs-on: ubuntu-latest
+          steps:
+          - uses: actions/checkout@v2
+          - name: Slack Notification
+            uses: rtCamp/action-slack-notify@v2
+            env:
+              SLACK_WEBHOOK: https://hooks.slack.com/services/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
