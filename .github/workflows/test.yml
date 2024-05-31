@@ -5,11 +5,7 @@ on:
     branches: [ "Groep-3" ]
   pull_request:
     branches: [ "Groep-3" ]
-
   workflow_dispatch:
-
-#permissions:
-# contents: read
 
 jobs:
   test:
@@ -17,10 +13,10 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
@@ -28,26 +24,31 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install fastapi uvicorn sqlalchemy pymysql
-        pip install pytest pytest-cov  # Installeer pytest en coverage
-        pip install pytest-mock
+        pip install pytest pytest-cov pytest-mock
 
     - name: Run tests
-      run: |
-        pytest backend/tests/update_report_test.py  # Voer je tests uit
+      run: pytest backend/tests/update_report_test.py
 
-        
+  notify_success:
+    runs-on: ubuntu-latest
+    needs: test
+    if: success()
+    steps:
     - name: Notify Slack on success
-      if: success()
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
       with:
-        args: '{"text":"Tests passed successfully!"}'
-  
+        status: success
+
+  notify_failure:
+    runs-on: ubuntu-latest
+    needs: test
+    if: failure()
+    steps:
     - name: Notify Slack on failure
-      if: failure()
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
       with:
-        args: '{"text":"Tests failed!"}'
+        status: failure
