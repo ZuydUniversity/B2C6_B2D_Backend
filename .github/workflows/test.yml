@@ -2,10 +2,13 @@ name: Groep-3 Unit Test oefenen
 
 on:
   push:
-    branches: [ "Groep-3" ]
+    branches: 
+      - "Groep-3"
   pull_request:
-    branches: [ "Groep-3" ]
+    branches: 
+      - "Groep-3"
 
+  
   workflow_dispatch:
 
 #permissions:
