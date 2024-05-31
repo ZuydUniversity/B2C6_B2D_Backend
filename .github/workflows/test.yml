@@ -29,11 +29,9 @@ jobs:
     - name: Run tests
       run: pytest backend/tests/update_report_test.py
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-    - name: Send Slack notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
+    - name: Send Slack notification on failure
+      if: failure()
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data '{"text":"Test failed in Groep-3 branch: $GITHUB_RUN_URL"}' \
+        ${{ secrets.GROEP_DRIE }}
