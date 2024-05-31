@@ -4,3 +4,20 @@ Studenten repository voor Backend voor het vak B2C6 DevOps. De backend wordt gem
 Iets eraan toegevoegd door Nicky. Alweer met Casper naast me.
 
 
+## install
+
+```bash
+pip install -r requirements.txt
+```
+
+## run
+
+**dev mode:**
+```bash
+fastapi dev main.py
+```
+
+**prod mode:**
+```bash
+fastapi run main.py
+```
