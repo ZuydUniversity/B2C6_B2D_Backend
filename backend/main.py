@@ -74,4 +74,4 @@ if __name__ == "__main__":
     db.close()
 
 
-  #even snel iets testen!!!!!
+  #kom op waarom doet ie het niet
