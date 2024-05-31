@@ -30,16 +30,14 @@ jobs:
       id: run_tests
       run: pytest backend/tests/update_report_test.py
 
-    - name: Send Slack notification on success
-      if: success()
-      run: |
-        curl -X POST -H 'Content-type: application/json' \
-        --data '{"text":"Test succeeded in Groep-3 branch: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-        ${{ secrets.GROEP_DRIE }}
+    - name: Send notification on slack using webhooks
+      uses: slackapi/slack-github-action@v1.24.0
+      with:
+        payload: |
+          {
+            "text":"Dit is een test"
+          }
+      env:
+        SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+          
 
-    - name: Send Slack notification on failure
-      if: failure()
-      run: |
-        curl -X POST -H 'Content-type: application/json' \
-        --data '{"text":"Test failed in Groep-3 branch: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-        ${{ secrets.GROEP_DRIE }}
