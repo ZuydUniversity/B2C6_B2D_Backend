@@ -34,12 +34,12 @@ jobs:
       if: success()
       run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data '{"text":"Test succeeded in Groep-3 branch:  $GITHUB_RUN_URL"}' \
+        --data '{"text":"Test succeeded in Groep-3 branch: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
         ${{ secrets.GROEP_DRIE }}
 
     - name: Send Slack notification on failure
       if: failure()
       run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data '{"text":"Test failed in Groep-3 branch:  $GITHUB_RUN_URL"}' \
+        --data '{"text":"Test failed in Groep-3 branch: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
         ${{ secrets.GROEP_DRIE }}
