@@ -6,9 +6,3 @@ class ResultaatBase(BaseModel):
     naam: str
     datum: PastDate
     omschrijving: str
-
-class ResultaatUpdate(BaseModel):
-    onderzoek: None # dit vervangen met onderzoek class
-    naam: str
-    datum: PastDate
-    omschrijving: str

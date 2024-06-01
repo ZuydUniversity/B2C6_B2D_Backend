@@ -9,7 +9,7 @@ def resultaat_get_by_id(user_id: UUID) -> ResultaatBase:
 
     return RESULTAAT
 
-def resultaat_update_by_id(user_id: UUID, update_data: ResultaatUpdate) -> ResultaatBase:
+def resultaat_update_by_id(user_id: UUID, update_data: ResultaatBase) -> ResultaatBase:
     existing_resultaat = resultaat_get_data_by_id(user_id)
     if not existing_resultaat:
         return None
