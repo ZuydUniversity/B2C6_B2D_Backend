@@ -74,12 +74,11 @@ database = [
   }
 ]
 
-
 router = APIRouter(
     prefix="/zorgverleners"
 )
 
-@router.get("/")
+@router.get("")
 async def get_zorgverleners():
     return {"data": database}
 
@@ -90,13 +89,12 @@ async def get_zorgverlenerById(id: int):
 
             return z
 
-@router.post("/")
+@router.post("")
 async def add_zorgverlener(zorgverlener: Zorgverlener):
 
     database.append(zorgverlener.model_dump())
 
     return zorgverlener
-
 
 @router.delete("/{id}")
 async def delete_zorgverlener(id: int):

@@ -1,0 +1,17 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - "groep_1_B2D_Said_Amghar"
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pulling git repo
+        uses: actions/checkout@v2
+      - name: say hi to Saïd
+        run: echo "Hallo Saïd"
+  
+
