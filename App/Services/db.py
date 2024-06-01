@@ -6,3 +6,8 @@ def resultaat_get_data_by_id(user_id: UUID) -> ...:
     
     return ...
     
+def resultaat_delete_data_by_id(user_id: UUID) -> None:
+    if user_id in ...:
+        del ...[user_id]
+    else:
+        raise KeyError("Resultaat niet gevonden")
