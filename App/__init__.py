@@ -10,6 +10,7 @@ from .Data import DatabaseModels
 from .Data.Database import engine
 
 
+from .Routes import Patient_Router
 
 def initializeApp():
     origins = ["*"]
@@ -21,6 +22,7 @@ def initializeApp():
     app.include_router(PatientRouter.router)
     app.include_router(ZorgverlenerRoute.router)
     app.include_router(VerslagRoute.router)
+    app.include_router(Patient_Router.router)
     
     app.add_middleware(
     CORSMiddleware,
