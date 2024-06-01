@@ -9,8 +9,3 @@ def resultaat_get_by_id(user_id: UUID) -> ResultaatBase:
     
     return RESULTAAT
     
-def resultaat_delete_by_id(user_id: UUID) -> ResultaatBase:
-    RESULTAAT_DATA = resultaat_get_data_by_id(user_id)
-    RESULTAAT: ResultaatBase = ...
-
-    return RESULTAAT
