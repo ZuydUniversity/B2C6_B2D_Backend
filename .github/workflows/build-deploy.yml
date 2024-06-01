@@ -1,12 +1,11 @@
 name: Build and Deploy
-
 on:
   push:
     branches:
       - "groep_1_B2D_Said_Amghar"
 
 jobs:
-  job1:
+  API_Setup:
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
@@ -17,7 +16,11 @@ jobs:
           python-version: "3.12"
       - name: Update pip
         run: python -m pip install --upgrade pip
-      - name: install all dependencies
-        run: sudo apt install libmariadb3 libmariadb-dev && pip install -r requirements.txt
+      - name: Install all dependencies
+        run: | 
+          sudo apt install libmariadb3 libmariadb-dev
+          pip install -r requirements.txt
+      - name: UnitTesten
+        run: echo "Dit is een nep test"
   
 
