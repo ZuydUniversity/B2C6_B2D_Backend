@@ -77,7 +77,7 @@ jobs:
             script: |
               sudo mkdir -p /API
               pwd
-              sudo cp -r dist/* groep1@52.166.135.125:/API
+              sudo cp -r "${{ github.workspace }}/dist"/* groep1@52.166.135.125:/API
             # Additional commands to start or configure your application as needed
 
   # deploy:
