@@ -78,13 +78,14 @@ jobs:
     steps:
       - name: Pulling git repo
         uses: actions/checkout@v2
+  
       - name: Create artefact
         run: |
           mkdir dist
-          ls
           cp -r App main.py requirements.txt dist/
           cd dist
           ls
+  
       - name: Deploy to ubuntu server
         uses: ErenKrt/ssh-push@main
         with:
@@ -94,7 +95,9 @@ jobs:
           source: "./dist"
           destination: "API"
           scripts: |
-            rm -r API && mkdir API
+            cd API
+            rm -r *
+            cp -r ../App ../main.py ../requirements.txt .
             pip install -r requirements.txt
 
 
