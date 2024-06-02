@@ -70,15 +70,13 @@ jobs:
             cp -r App main.py requirements.txt dist/
             ls
         - name: Deploy to ubuntu server
-          uses: appleboy/ssh-action@master
+          uses: garygrossgarten/github-action-scp@release
           with:
+            local: dist
+            remote: API
             host: 52.166.135.125
             username: groep1
             password: Welkomwelkom123!
-            script: |
-              sudo mkdir -p /API
-              pwd
-              sudo cp -r ${{ github.workspace }}/dist/* groep1@52.166.135.125:/API
             # Additional commands to start or configure your application as needed
 
   # deploy:
