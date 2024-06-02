@@ -93,6 +93,6 @@ jobs:
         #     username: groep1
         #     password: Welkomwelkom123!
         - name: Start API
-          run: echo "Welkomwelkom123!" | ssh -t groep1@52.166.135.125 "cd /API && sudo uvicorn main:app --host 0.0.0.0 --port 80; exit"
+          run: echo "Welkomwelkom123!" | ssh groep1@52.166.135.125 "cd /API && sudo uvicorn main:app --host 0.0.0.0 --port 80; exit"
 
 
