@@ -67,7 +67,7 @@ jobs:
             password: Welkomwelkom123!
             script: |
               cd API
-              python -m pip install --upgrade pip
+              python3 -m pip install --upgrade pip
               sudo apt install libmariadb3 libmariadb-dev
               sudo pip install -r requirements.txt
               uvicorn main:app --host 0.0.0.0 --port 80
