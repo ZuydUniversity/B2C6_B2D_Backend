@@ -80,7 +80,7 @@ router = APIRouter(
 
 @router.get("")
 async def get_zorgverleners():
-    return {"data": database}
+    return database
 
 @router.get("/{id}")
 async def get_zorgverlenerById(id: int):
