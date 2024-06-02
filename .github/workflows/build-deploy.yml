@@ -95,6 +95,6 @@ jobs:
                 "text": "Geslaagd"
               }
           env:
-            SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+            SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
             
 
