@@ -81,6 +81,7 @@ jobs:
       - name: Create artefact
         run: |
           mkdir dist
+          ls
           cp -r App main.py requirements.txt dist/
       - name: Deploy to ubuntu server
         uses: ErenKrt/ssh-push@main
