@@ -85,6 +85,16 @@ jobs:
               sudo pip install -r requirements.txt
               nohup sudo uvicorn main:app --host 0.0.0.0 --port 80 >api.log 2>&1 </dev/null &
               exit
-
-
+        - name: Notify Slack
+          id: slack
+          uses: slackapi/slack-github-action@v1.26.0
+          with:
+            # This data can be any valid JSON from a previous step in the GitHub Action
+            payload: |
+              {
+                "text": "Geslaagd"
+              }
+          env:
+            SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+            
 
