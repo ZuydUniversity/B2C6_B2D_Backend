@@ -70,19 +70,29 @@ jobs:
             host: 52.166.135.125
             username: groep1
             password: Welkomwelkom123!
+        # - name: Start API
+        #   uses: appleboy/ssh-action@v1.0.3
+        #   with:
+        #     host: 52.166.135.125
+        #     username: groep1
+        #     password: Welkomwelkom123!
+        #     script: |
+        #       python3 -m pip install --upgrade pip
+        #       pip install mariadb
+        #       sudo apt-get update -y
+        #       sudo apt install libmariadb3 libmariadb-dev -y
+        #       cd API
+        #       sudo pip install -r requirements.txt
+        #       (exit) & (timeout 5s sudo uvicorn main:app --host 0.0.0.0 --port 80)
+        # - name: Deploy to ubuntu server
+        #   uses: garygrossgarten/github-action-scp@release
+        #   with:
+        #     local: dist
+        #     remote: API
+        #     host: 52.166.135.125
+        #     username: groep1
+        #     password: Welkomwelkom123!
         - name: Start API
-          uses: appleboy/ssh-action@v1.0.3
-          with:
-            host: 52.166.135.125
-            username: groep1
-            password: Welkomwelkom123!
-            script: |
-              python3 -m pip install --upgrade pip
-              pip install mariadb
-              sudo apt-get update -y
-              sudo apt install libmariadb3 libmariadb-dev -y
-              cd API
-              sudo pip install -r requirements.txt
-              sudo uvicorn main:app --host 0.0.0.0 --port 80 && exit
+          run: echo "Welkomwelkom123!" | ssh -t groep1@52.166.135.125 "cd /API && sudo uvicorn main:app --host 0.0.0.0 --port 80; exit"
 
 
