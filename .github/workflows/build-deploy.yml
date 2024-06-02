@@ -77,7 +77,7 @@ jobs:
             password: Welkomwelkom123!
             script: |
               sudo mkdir -p /API
-              sudo scp -r dist/* groep1@52.166.135.125:/API
+              sudo cp -r dist/* groep1@52.166.135.125:/API
             # Additional commands to start or configure your application as needed
 
   # deploy:
