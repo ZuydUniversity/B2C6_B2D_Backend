@@ -83,6 +83,8 @@ jobs:
           mkdir dist
           ls
           cp -r App main.py requirements.txt dist/
+          cd dist
+          ls
       - name: Deploy to ubuntu server
         uses: ErenKrt/ssh-push@main
         with:
