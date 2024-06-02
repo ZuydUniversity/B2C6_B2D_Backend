@@ -61,7 +61,7 @@ jobs:
               sudo reboot
               exit
         - name: Wait for server to reboot
-          run: sleep 15
+          run: sleep 20
         - name: Deploy to ubuntu server
           uses: garygrossgarten/github-action-scp@release
           with:
