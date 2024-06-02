@@ -51,6 +51,15 @@ jobs:
             pwd
             cp -r App main.py requirements.txt dist/
             ls
+        - name: Reboot Server
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: 52.166.135.125
+            username: groep1
+            password: Welkomwelkom123!
+            script: |
+              sudo reboot
+              exit
         - name: Deploy to ubuntu server
           uses: garygrossgarten/github-action-scp@release
           with:
@@ -73,3 +82,4 @@ jobs:
               cd API
               sudo pip install -r requirements.txt
               sudo uvicorn main:app --host 0.0.0.0 --port 80
+
