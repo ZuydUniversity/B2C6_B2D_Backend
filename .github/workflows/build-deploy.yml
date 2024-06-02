@@ -32,7 +32,7 @@ jobs:
       - name: Install all dependencies
         run: | 
           sudo apt install libmariadb3 libmariadb-dev
-          pip install -r requirements.tx
+          pip install -r requirements.txt
       - name: UnitTests
         run: echo "Fakka Hassan!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   
