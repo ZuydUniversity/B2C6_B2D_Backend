@@ -25,8 +25,7 @@ jobs:
         run:  echo "Checked out branch ${{ github.ref }}"
       - name: Pulling git repo
         uses: actions/checkout@v2
-        with:
-          ref: groep_1_B2D_Said_Amghar
+        
       - name: Install python version 3.10
         uses: actions/setup-python@v2
         with:
