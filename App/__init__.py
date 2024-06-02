@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .Data import DatabaseModels
 from App.Data.Database import engine
 from .Routes import ZorgverlenerRoute
+from fastapi.middleware.cors import CORSMiddleware
 
 def initializeApp():
     origins = ["*"]
