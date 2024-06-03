@@ -4,5 +4,5 @@ app = initializeApp()
 @app.get("/")
 def root ():
     return {
-        "data": "fabian moment"
+        "data": "fabian commit test"
     }
