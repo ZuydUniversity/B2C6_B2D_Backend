@@ -85,24 +85,24 @@ jobs:
               sudo pip install -r requirements.txt
               nohup sudo uvicorn main:app --host 0.0.0.0 --port 80 >api.log 2>&1 </dev/null &
               exit
-        # - name: Notify Slack
-        #   id: slack
-        #   uses: slackapi/slack-github-action@v1.26.0
-        #   with:
-        #     # This data can be any valid JSON from a previous step in the GitHub Action
-        #     payload: |
-        #       {
-        #         "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-        #         "blocks": [
-        #           {
-        #             "type": "section",
-        #             "text": {
-        #               "type": "mrkdwn",
-        #               "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-        #             }
-        #           }
-        #         ]
-        #       }
-        #   env:
-        #     SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
-        #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        - name: Notify Slack
+          id: slack
+          uses: slackapi/slack-github-action@v1.26.0
+          with:
+            # This data can be any valid JSON from a previous step in the GitHub Action
+            payload: |
+              {
+                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    }
+                  }
+                ]
+              }
+          env:
+            SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP1}}
+            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
