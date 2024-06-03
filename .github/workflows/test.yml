@@ -37,6 +37,6 @@ jobs:
         SLACK_ICON: https://github.com/rtCamp.png?size=48
         SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
         SLACK_TITLE: Post Title
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK: https://hooks.slack.com/services/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 
           
 
