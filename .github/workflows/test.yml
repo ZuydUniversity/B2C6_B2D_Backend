@@ -30,7 +30,7 @@ jobs:
       id: run_tests
       run: pytest backend/tests/update_report_test.py
 
-    - name: Slack Notification on Success
+    - name: Slack Notification on Success!
       if: success()
       uses: rtCamp/action-slack-notify@v2
       env:
@@ -40,7 +40,7 @@ jobs:
         SLACK_TITLE: 'Unit Test Success'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
 
-    - name: Slack Notification on Failure
+    - name: Slack Notification on Failure!
       if: failure()
       uses: rtCamp/action-slack-notify@v2
       env:
