@@ -35,7 +35,7 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_COLOR: good
-        SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png?ex=665ee069&is=665d8ee9&hm=3d02493d67180eab947e2a54611d42c6e7757f1525ec1bb7abd07286d60e9611&
+        SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
         SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
         SLACK_TITLE: 'Unit Test Success'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
@@ -45,7 +45,7 @@ jobs:
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_COLOR: danger
-        SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png?ex=665ee069&is=665d8ee9&hm=3d02493d67180eab947e2a54611d42c6e7757f1525ec1bb7abd07286d60e9611&
+        SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
         SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
         SLACK_TITLE: 'Unit Test Failure'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
