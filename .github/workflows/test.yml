@@ -30,13 +30,23 @@ jobs:
       id: run_tests
       run: pytest backend/tests/update_report_test.py
 
-    - name: Slack Notification
+    - name: Slack Notification on Success
+      if: success()
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+        SLACK_COLOR: good
         SLACK_ICON: https://github.com/rtCamp.png?size=48
         SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
-        SLACK_TITLE: Post Title
-        SLACK_WEBHOOK: https://hooks.slack.com/services/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 
-          
+        SLACK_TITLE: 'Unit Test Success'
+        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
+
+    - name: Slack Notification on Failure
+      if: failure()
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_COLOR: danger
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
+        SLACK_TITLE: 'Unit Test Failure'
+        SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
 
