@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Groep 6 Test
 on:
   push:
     branches:
