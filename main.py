@@ -2,7 +2,7 @@ from App import initializeApp
 
 app = initializeApp()
 @app.get("/")
-dev root ():
+def root ():
     return {
         "data": "fabian moment"
     }
