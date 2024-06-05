@@ -5,8 +5,8 @@ from App.Models.Patient import Patient
 # Dummy database
 database = [{
   "id": UUID("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
-  "name": "has2323san",
-  "surname": "test555",
+  "name": "Halloooo",
+  "surname": "Doeeeiii",
   "email": "string",
   "age": 0,
   "address": "string",
