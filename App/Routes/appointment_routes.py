@@ -4,7 +4,23 @@ from ..Models.appointment_model import Appointment
 
 router = APIRouter()
 
-sim_data: List[Appointment] = []
+sim_data: List[Appointment] = [{
+  "id": 0,
+  "name": "string",
+  "description": "string",
+  "location": "string",
+  "department": "string",
+  "date": "2024-06-01T18:14:02.411Z"
+}
+,
+{
+  "id": 1,
+  "name": "string",
+  "description": "string",
+  "location": "string",
+  "department": "string",
+  "date": "2025-06-01T18:14:02.411Z"
+}]
 
 @router.post("/appointments/", response_model= Appointment)
 def create_appointment(appointment: Appointment):
