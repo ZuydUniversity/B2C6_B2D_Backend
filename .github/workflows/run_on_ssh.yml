@@ -5,10 +5,11 @@ on:
   workflow_dispatch:
 
 env:
+  LOCAL_DIST: "/tmp/dist"
   REMOTE_HOST: "108.142.148.168"
   REMOTE_USER: "groep2" 
   REMOTE_PASSWORD: "groep-2Hexagon"
-  REMOTE_DIR: "/tmp/app"  # "~/<remote_dir>"
+  REMOTE_DIST: "/tmp/app"  # "~/<remote_dir>"
 
 jobs:
   upload_on_ssh:
@@ -16,14 +17,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: prepare dist
+        run: |
+          cp -r . "${{ env.LOCAL_DIST }}"
+          rm -rf "${{ env.LOCAL_DIST }}/.git"
+
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: .
+          local: ${{ env.LOCAL_DIST }}
           host: ${{ env.REMOTE_HOST }}
           username: ${{ env.REMOTE_USER }}
           password: ${{ env.REMOTE_PASSWORD }}
-          remote: ${{ env.REMOTE_DIR }}
+          remote: ${{ env.REMOTE_DIST }}
 
   run_on_ssh:
     runs-on: ubuntu-latest
@@ -37,7 +43,7 @@ jobs:
             script: |
               ps -faux
               pkill fastapi  # kill old instance
-              cd "${{ env.REMOTE_DIR }}"
+              cd "${{ env.REMOTE_DIST }}"
               python3 -m venv venv
               pip install -r requirements.txt
               fastapi run main.py
