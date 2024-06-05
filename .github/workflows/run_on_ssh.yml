@@ -47,7 +47,7 @@ jobs:
 
               # install pipeline runtime
               sudo apt-get update -y
-              sudo apt install python3-venv
+              sudo apt install python3-venv -y
               
               # create venv (required for installing packages)
               cd "${{ env.REMOTE_DIST }}"
