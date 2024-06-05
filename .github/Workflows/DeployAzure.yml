@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App
+name: run_python_via_ssh
 
 on:
   push:
