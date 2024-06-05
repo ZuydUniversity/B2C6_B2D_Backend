@@ -83,7 +83,7 @@ jobs:
               sudo apt install libmariadb3 libmariadb-dev -y
               cd API
               sudo pip install -r requirements.txt
-              nohup sudo uvicorn main:app --host 0.0.0.0 --port 80 >api.log 2>&1 </dev/null &
+              nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null &
               exit
         - name: Notify Slack
           id: slack
