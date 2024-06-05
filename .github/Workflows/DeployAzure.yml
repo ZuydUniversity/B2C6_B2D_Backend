@@ -1,6 +1,7 @@
 name: Build and deploy Python app to Azure Web App
 
 on:
+  commit:
   push:
   workflow_dispatch:
 
