@@ -1,4 +1,4 @@
-from Zorgverlener import Zorgverlener
+
 
 class Zorgverlener:
     
