@@ -6,7 +6,8 @@ env:
 
 on:
   push:
-    branches: [ $default-branch, "workflow-azure" ]
+    branches: 
+      - "workflow-azure"
   workflow_dispatch:
 
 permissions:
