@@ -60,7 +60,7 @@ jobs:
               sudo apt install libmariadb3 libmariadb-dev -y
               
               # run
-              nohup ./venv/bin/fastapi run main.py 2>&1 1>~/fastapi_err.log &
+              nohup ./venv/bin/fastapi run main.py 2>&1 1>>~/fastapi.log &
 
               # get ip
               echo "[+] hosting website on http://${{ env.REMOTE_HOST }}:8000"
