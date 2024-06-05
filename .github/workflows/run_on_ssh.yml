@@ -44,15 +44,18 @@ jobs:
               # kill old instance
               ps -faux
               pkill fastapi  
+
+              # install pipeline runtime
+              sudo apt-get update -y
+              sudo apt install python3-venv
               
               # create venv (required for installing packages)
               cd "${{ env.REMOTE_DIST }}"
               python3 -m venv venv
               source ./venv/bin/activate
 
-              # install dependencies
+              # install app dependencies
               pip install -r requirements.txt
-              sudo apt-get update -y
               sudo apt install libmariadb3 libmariadb-dev -y
               
               # run
