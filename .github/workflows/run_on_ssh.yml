@@ -8,7 +8,7 @@ env:
   REMOTE_HOST: "108.142.148.168"
   REMOTE_USER: "groep2" 
   REMOTE_PASSWORD: "groep-2Hexagon"
-  REMOTE_DIR: "backend_server"  # "~/<remote_dir>"
+  REMOTE_DIR: "/tmp/app"  # "~/<remote_dir>"
 
 jobs:
   upload_on_ssh:
@@ -35,8 +35,9 @@ jobs:
             username: ${{ env.REMOTE_USER }}
             password: ${{ env.REMOTE_PASSWORD }}
             script: |
-              cd "${{ env.REMOTE_DIR }}"
-              pip install -r requirements.txt
               ps -faux
-              pkill fastapi
+              pkill fastapi  # kill old instance
+              cd "${{ env.REMOTE_DIR }}"
+              python3 -m venv venv
+              pip install -r requirements.txt
               fastapi run main.py
