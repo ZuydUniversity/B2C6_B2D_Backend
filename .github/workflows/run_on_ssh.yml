@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  remote_dir: 'backend_server'  # "~/<remote_dir>"
+  REMOTE_DIR: 'backend_server'  # "~/<remote_dir>"
 
 jobs:
   upload_on_ssh:
@@ -17,7 +17,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: .
-          remote: $remote_dir
+          remote: $REMOTE_DIR
           host: 108.142.148.168
           username: groep2
           password: groep-2Hexagon
