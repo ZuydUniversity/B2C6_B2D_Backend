@@ -51,6 +51,6 @@ jobs:
               pip install -r requirements.txt
               sudo apt-get update -y
               sudo apt install libmariadb3 libmariadb-dev -y
-
+              
               # run
-              fastapi run main.py
+              ./venv/bin/fastapi run main.py
