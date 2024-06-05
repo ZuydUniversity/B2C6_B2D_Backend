@@ -5,7 +5,10 @@ on:
   workflow_dispatch:
 
 env:
-  REMOTE_DIR: 'backend_server'  # "~/<remote_dir>"
+  REMOTE_HOST: "108.142.148.168"
+  REMOTE_USER: "groep2" 
+  REMOTE_PASSWORD: "groep-2Hexagon"
+  REMOTE_DIR: "backend_server"  # "~/<remote_dir>"
 
 jobs:
   upload_on_ssh:
@@ -17,8 +20,23 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: .
+          host: ${{ env.REMOTE_HOST }}
+          username: ${{ env.REMOTE_USER }}
+          password: ${{ env.REMOTE_PASSWORD }}
           remote: ${{ env.REMOTE_DIR }}
-          host: 108.142.148.168
-          username: groep2
-          password: groep-2Hexagon
-      
+
+  run_on_ssh:
+    runs-on: ubuntu-latest
+    needs: upload_on_ssh
+    steps:
+        - uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{ env.REMOTE_HOST }}
+            username: ${{ env.REMOTE_USER }}
+            password: ${{ env.REMOTE_PASSWORD }}
+            script: |
+              cd "${{ env.REMOTE_DIR }}"
+              pip install -r requirements.txt
+              ps -faux
+              pkill fastapi
+              fastapi run main.py
