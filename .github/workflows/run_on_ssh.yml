@@ -10,16 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: create zip
-        run: |
-          zip -r . current.zip
-          ls -la
-      
-      - name: 'Deploy to Azure'
-        id: deploy-to-webapp
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Deploy to ubuntu server
+        uses: garygrossgarten/github-action-scp@release
         with:
+          local: .
+          remote: backend
           host: 108.142.148.168
           username: groep2
           password: groep-2Hexagon
-          run: git clone https://github.com/ZuydUniversity/B2C6_B2D_Backend.git
+      
