@@ -5,7 +5,9 @@ env:
   PYTHON_VERSION: '3.8'              #Python version to use
 
 on:
-  push
+  push:
+    branches:
+      - "workflow-azure"
   workflow_dispatch:
 
 permissions:
