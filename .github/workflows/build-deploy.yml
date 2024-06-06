@@ -73,7 +73,7 @@ jobs:
             username: ${{env.SERVER_USER}}
             password: ${{env.SERVER_PASSWORD}}
             script: |
-              sudo rm -r API
+              sudo rm -rf API
         
         - name: Deploy to ubuntu server
           uses: garygrossgarten/github-action-scp@release
