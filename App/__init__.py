@@ -3,7 +3,7 @@ from .Routes import ZorgverlenerRoute
 from fastapi.middleware.cors import CORSMiddleware
 
 def initializeApp():
-    origins = ["http://localhost:80", "https://localhost","http://52.166.135.125:80", "http://localhost:8000", "https://localhost:8000","*"]
+    origins = ["*"]
     app = FastAPI()
     app.add_middleware(
     CORSMiddleware,
