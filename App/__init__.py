@@ -3,9 +3,7 @@ from .Routes import ZorgverlenerRoute
 from fastapi.middleware.cors import CORSMiddleware
 
 def initializeApp():
-
-    
-    origins = ["*"]
+    origins = ["52.166.135.125", "*", "127.0.0.1"]
     app = FastAPI()
     app.include_router(ZorgverlenerRoute.router)
     app.add_middleware(
@@ -14,5 +12,6 @@ def initializeApp():
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    
 )
     return app
