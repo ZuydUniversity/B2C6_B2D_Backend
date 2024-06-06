@@ -1,0 +1,132 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - "geen"
+
+env:
+  HOST: 52.166.135.125
+  SERVER_USER: groep1
+  SERVER_PASSWORD: Welkomwelkom123!
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pulling git repo
+        uses: actions/checkout@v4
+        
+      - name: Install python version 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install all dependencies
+        run: | 
+          sudo apt install libmariadb3 libmariadb-dev -y
+          pip install -r requirements.txt
+      
+      - name: UnitTests
+        run: echo "Dit is een nep test"
+      
+      - name: Build API artifacts
+        run: | 
+          mkdir API
+          cp -r App main.py requirements.txt API/
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: API
+          path: API
+       
+  deploy:
+      runs-on: ubuntu-latest
+      needs: [build]
+      steps:
+        - name: Download artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: API
+            path: API
+
+        - name: Reboot Server
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
+            script: |
+              sudo reboot
+              exit
+
+        - name: Wait for server to reboot
+          run: sleep 20
+
+        - name: Clean Old Artefact
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
+            script: |
+              sudo rm -rf API
+        
+        - name: Deploy to ubuntu server
+          uses: garygrossgarten/github-action-scp@release
+          with:
+            local: API
+            remote: API
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
+
+        - name: Install dependenties
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
+            script: |
+              sudo apt install python3-pip -y
+              python3 -m pip install --upgrade pip
+              pip install mariadb
+              sudo apt-get update -y
+              sudo apt install libmariadb3 libmariadb-dev -y
+              cd API
+              sudo pip install -r requirements.txt
+
+        - name: Start API
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
+            script: |
+              ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
+              ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
+
+        - name: Notify Slack
+          id: slack
+          uses: slackapi/slack-github-action@v1.26.0
+          with:
+            # This data can be any valid JSON from a previous step in the GitHub Action
+            payload: |
+              {
+                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    }
+                  }
+                ]
+              }
+          env:
+            SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP1}}
+            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
