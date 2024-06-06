@@ -106,7 +106,7 @@ jobs:
             username: ${{env.SERVER_USER}}
             password: ${{env.SERVER_PASSWORD}}
             script: |
-              ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
+              ( cd API ; nohup sudo uvicorn main:app --port 8000 >api.log 2>&1 </dev/null & )
               ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
 
         - name: Notify Slack
