@@ -91,6 +91,7 @@ jobs:
             username: ${{env.SERVER_USER}}
             password: ${{env.SERVER_PASSWORD}}
             script: |
+              sudo apt install python3-pip
               python3 -m pip install --upgrade pip
               pip install mariadb
               sudo apt-get update -y
