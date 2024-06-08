@@ -122,20 +122,20 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉"
+              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉 \n Here are the executed steps: ${{ steps.deploy.outputs.steps }}"
               			}
               		},
               		{
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*Bekijk de Commit:*"
+              				"text": "*Show Commit:*"
               			},
               			"accessory": {
               				"type": "button",
               				"text": {
               					"type": "plain_text",
-              					"text": "Bekijk",
+              					"text": "Show",
               					"emoji": true
               				},
               				"value": "click_me_123",
@@ -150,7 +150,7 @@ jobs:
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         
         - name: Notify Slack Failure
-          if: ${{ failure() }}
+          if: ${{ success() }}
           id: slack-failure
           uses: slackapi/slack-github-action@v1.26.0
           with:
