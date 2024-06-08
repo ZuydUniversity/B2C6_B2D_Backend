@@ -122,7 +122,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* $Job.Status 🎉"
+              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉"
               			}
               		},
               		{
@@ -135,10 +135,11 @@ jobs:
               				"type": "button",
               				"text": {
               					"type": "plain_text",
-              					"text": "Bekijken",
+              					"text": "Bekijk",
               					"emoji": true
               				},
               				"value": "click_me_123",
+              				"url": "${{github.event.head_commit.url}}",
               				"action_id": "button-action"
               			}
               		}
@@ -160,7 +161,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* $Job.Status 😞 \n Here are the executed steps: ${{ steps.deploy.outputs.steps }}"
+              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 😞 \n Here are the executed steps: ${{ steps.deploy.outputs.steps }}"
               			}
               		},
               		{
@@ -173,10 +174,11 @@ jobs:
               				"type": "button",
               				"text": {
               					"type": "plain_text",
-              					"text": "Bekijken",
+              					"text": "Bekijk",
               					"emoji": true
               				},
               				"value": "click_me_123",
+              				"url": "${{github.event.head_commit.url}}",
               				"action_id": "button-action"
               			}
               		}
