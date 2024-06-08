@@ -149,5 +149,5 @@ jobs:
               	]
               }
           env:
-            SLACK_WEBHOOK_URL: $Secrets.SLACK_URL_GROEP1
+            SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP1}}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
