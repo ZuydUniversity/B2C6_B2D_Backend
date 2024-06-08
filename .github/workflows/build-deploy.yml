@@ -110,7 +110,7 @@ jobs:
               ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
 
         - name: Notify Slack Success
-          if: ${{ failure() }}
+          if: ${{ success() }}
           id: slack-success
           uses: slackapi/slack-github-action@v1.26.0
           with:
@@ -122,25 +122,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉 \n Here are the executed steps: ${{ steps.deploy.outputs.steps }}"
-              			}
-              		},
-              		{
-              			"type": "section",
-              			"text": {
-              				"type": "mrkdwn",
-              				"text": "*Show Commit:*"
-              			},
-              			"accessory": {
-              				"type": "button",
-              				"text": {
-              					"type": "plain_text",
-              					"text": "Show",
-              					"emoji": true
-              				},
-              				"value": "click_me_123",
-              				"url": "${{github.event.head_commit.url}}",
-              				"action_id": "button-action"
+              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
               			}
               		}
               	]
@@ -150,7 +132,7 @@ jobs:
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         
         - name: Notify Slack Failure
-          if: ${{ success() }}
+          if: ${{ failure() }}
           id: slack-failure
           uses: slackapi/slack-github-action@v1.26.0
           with:
@@ -161,25 +143,7 @@ jobs:
               			"type": "section",
               			"text": {
               				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 😞 \n Here are the executed steps: ${{ steps.deploy.outputs.steps }}"
-              			}
-              		},
-              		{
-              			"type": "section",
-              			"text": {
-              				"type": "mrkdwn",
-              				"text": "*Bekijk de Commit:*"
-              			},
-              			"accessory": {
-              				"type": "button",
-              				"text": {
-              					"type": "plain_text",
-              					"text": "Bekijk",
-              					"emoji": true
-              				},
-              				"value": "click_me_123",
-              				"url": "${{github.event.head_commit.url}}",
-              				"action_id": "button-action"
+              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 😞 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
               			}
               		}
               	]
