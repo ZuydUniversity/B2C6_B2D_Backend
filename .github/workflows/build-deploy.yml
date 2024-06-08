@@ -110,7 +110,7 @@ jobs:
               ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
 
         - name: Notify Slack Success
-          if: ${{ success() }}
+          if: ${{ failure() }}
           id: slack-success
           uses: slackapi/slack-github-action@v1.26.0
           with:
