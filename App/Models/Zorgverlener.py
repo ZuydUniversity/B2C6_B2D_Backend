@@ -7,3 +7,4 @@ class Zorgverlener(BaseModel):
     achternaam: str
     email: str
     wachtwoord: str
+    
