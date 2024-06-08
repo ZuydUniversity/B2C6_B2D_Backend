@@ -9,6 +9,11 @@ env:
   SERVER_USER: groep1
   SERVER_PASSWORD: Welkomwelkom123!
 
+concurrency:
+  group: groep_1_B2D
+  cancel-in-progress: false
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -114,7 +119,6 @@ jobs:
           id: slack-success
           uses: slackapi/slack-github-action@v1.26.0
           with:
-            # This data can be any valid JSON from a previous step in the GitHub Action
             payload: |
               {
               	"blocks": [
