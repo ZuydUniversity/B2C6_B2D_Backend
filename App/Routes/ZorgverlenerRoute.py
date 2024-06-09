@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..Models.Zorgverlener import Zorgverlener
+from ..Models.ZorgverlenerModel import Zorgverlener
 from sqlalchemy.orm import Session
 from App.Data.Database import get_db
 from ..Repos.ZorgverlenerRepo import ZorgverlenersRepo

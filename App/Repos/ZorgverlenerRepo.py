@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from ..Models.Zorgverlener import Zorgverlener 
+from ..Models.ZorgverlenerModel import Zorgverlener 
 from App.Data import DatabaseModels as dbmodels
 
 class ZorgverlenersRepo:
