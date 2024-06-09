@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 
 class Zorgverlener(BaseModel):
-    id: int
-    naam: str
-    achternaam: str
+    id: int | None = None
+    name: str
+    lastName: str
     email: str
-    wachtwoord: str
+    phoneNumber: int
+    password: str
+    profession: str
     

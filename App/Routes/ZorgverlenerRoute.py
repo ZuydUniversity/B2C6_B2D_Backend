@@ -1,107 +1,54 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException, status
 from ..Models.Zorgverlener import Zorgverlener
-
-database = [
-  {
-    "id": 1,
-    "naam": "Jan",
-    "achternaam": "de Vries",
-    "email": "jan.de vries@voorbeeld.com",
-    "wachtwoord": "wachtwoord1"
-  },
-  {
-    "id": 2,
-    "naam": "Piet",
-    "achternaam": "Jansen",
-    "email": "piet.jansen@voorbeeld.com",
-    "wachtwoord": "wachtwoord2"
-  },
-  {
-    "id": 3,
-    "naam": "Klaas",
-    "achternaam": "Bakker",
-    "email": "klaas.bakker@voorbeeld.com",
-    "wachtwoord": "wachtwoord3"
-  },
-  {
-    "id": 4,
-    "naam": "Els",
-    "achternaam": "Visser",
-    "email": "els.visser@voorbeeld.com",
-    "wachtwoord": "wachtwoord4"
-  },
-  {
-    "id": 5,
-    "naam": "Anne",
-    "achternaam": "Smit",
-    "email": "anne.smit@voorbeeld.com",
-    "wachtwoord": "wachtwoord5"
-  },
-  {
-    "id": 6,
-    "naam": "Lisa",
-    "achternaam": "Meijer",
-    "email": "lisa.meijer@voorbeeld.com",
-    "wachtwoord": "wachtwoord6"
-  },
-  {
-    "id": 7,
-    "naam": "Sander",
-    "achternaam": "Mulder",
-    "email": "sander.mulder@voorbeeld.com",
-    "wachtwoord": "wachtwoord7"
-  },
-  {
-    "id": 8,
-    "naam": "Emma",
-    "achternaam": "de Jong",
-    "email": "emma.de jong@voorbeeld.com",
-    "wachtwoord": "wachtwoord8"
-  },
-  {
-    "id": 9,
-    "naam": "Tom",
-    "achternaam": "Bos",
-    "email": "tom.bos@voorbeeld.com",
-    "wachtwoord": "wachtwoord9"
-  },
-  {
-    "id": 10,
-    "naam": "Lotte",
-    "achternaam": "van Dijk",
-    "email": "lotte.van dijk@voorbeeld.com",
-    "wachtwoord": "wachtwoord10"
-  }
-]
+from sqlalchemy.orm import Session
+from App.Data.Database import get_db
+from ..Repos.ZorgverlenerRepo import ZorgverlenersRepo
 
 router = APIRouter(
-    prefix="/zorgverleners"
+  prefix="/zorgverleners"
 )
 
 @router.get("")
-async def get_zorgverleners():
-    return database
+async def get_zorgverleners(db: Session = Depends(get_db)):
+  ZorgVerleners = await ZorgverlenersRepo(db).get_zorgverleners()
+  return ZorgVerleners
 
 @router.get("/{id}")
-async def get_zorgverlenerById(id: int):
-    for z in database:
-        if z["id"] == id:
+async def get_zorgverlenerById(id: int, db: Session = Depends(get_db)):
+  repo = ZorgverlenersRepo(db)
 
-            return z
+  exists = await repo.zorgverlenerExists(id)
+  if exists < 1:
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
+  
+  return await repo.get_zorgverlener(id)
 
 @router.post("")
-async def add_zorgverlener(zorgverlener: Zorgverlener):
+async def add_zorgverlener(zorgverlener: Zorgverlener, db: Session = Depends(get_db)):
+  repo = ZorgverlenersRepo(db)
+  newZorgverlener = await repo.add_zorgverlener(zorgverlener)
+  return f"New Zorgverlener with id:{newZorgverlener.id} created!"
 
-    database.append(zorgverlener.model_dump())
-
-    return zorgverlener
-
+@router.put("/{id}")
+async def update_zorgverlener(id:int, zorgverlener: Zorgverlener, db: Session = Depends(get_db)):
+  repo = ZorgverlenersRepo(db)
+  exists = await repo.zorgverlenerExists(id)
+  
+  if exists < 1:
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
+  
+  await repo.update_zorgverlener(id, zorgverlener)
+  return await repo.get_zorgverlener(id)
+    
 @router.delete("/{id}")
-async def delete_zorgverlener(id: int):
+async def delete_zorgverlener(id: int, db: Session = Depends(get_db)):
+  repo = ZorgverlenersRepo(db)
+  isDeleted = await repo.delete_zorgverlener(id)
 
-    deletedzorgverlener = None
-    for z in database:
-        if z["id"] == id:
-            index = database.index(z)
-            deletedzorgverlener = database.pop(index)
-    return {"Deleted object" : deletedzorgverlener}
+  if isDeleted:
+     return f"Zorgverlener with id:{id} has been removed succesfuly!"
+  
+  raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
