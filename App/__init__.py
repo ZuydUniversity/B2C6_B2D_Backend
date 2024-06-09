@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from .Routes import ZorgverlenerRoute
 from fastapi.middleware.cors import CORSMiddleware
-from .Data import DataBaseModels 
+from .Data import DatabaseModels
 from .Data.Database import engine
 
 
 def initializeApp():
     origins = ["*"]
 
-    DataBaseModels.Base.metadata.create_all(bind=engine)
+    DatabaseModels.Base.metadata.create_all(bind=engine)
 
     app = FastAPI()
 

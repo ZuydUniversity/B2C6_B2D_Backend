@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from ..Models.Zorgverlener import Zorgverlener 
-from App.Data import DataBaseModels as dbmodels
+from App.Data import DatabaseModels as dbmodels
 
 class ZorgverlenersRepo:
     def __init__(self, db: Session):
