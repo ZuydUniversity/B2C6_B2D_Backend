@@ -8,5 +8,4 @@ class Appointment(BaseModel):
     description: str
     location: str
     department: str
-    date: datetime
-
+    date: datetime    

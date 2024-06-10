@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from ..Models.appointment_model import Appointment
+from ..Repos.appointment_repo import create_appointment, read_appointment, update_appointment, delete_appointment
 
 router = APIRouter()
 
@@ -15,12 +16,10 @@ def create_appointment(appointment: Appointment):
 def read_appointments():
     return sim_data
 
-@router.get("/appointments/{appointment_id}", response_model=Appointment)
-def read_appointment(appointment_id: int):
-    for appointment in sim_data:
-        if appointment.id == appointment_id:
-            return appointment
-        
+@router.get("/appointments/{id}", response_model=Appointment) ### DEZE IS AAN DATABASE GEKOPPELD ###
+def read_appointment_route(id: int):
+    return read_appointment(id)
+
 @router.put("/appointments/{appointment_id}", response_model=Appointment)
 def update_appointment(appointment_id: int, appointment: Appointment):
     for index, existing_appointment in enumerate(sim_data):
@@ -35,4 +34,4 @@ def delete_appointment(appointment_id: int):
     for index, appointment in enumerate(sim_data):
         if appointment.id == appointment_id:
             return sim_data.pop(index)
-    raise HTTPException(status_code=404, detail="Appointment not found")    
+    raise HTTPException(status_code=404, detail="Appointment not found")   
