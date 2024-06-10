@@ -61,7 +61,7 @@ jobs:
               
               # run
               # nohup ./venv/bin/fastapi run main.py 2>&1 1>>~/fastapi.log &
-              nohup sudo uvicorn main:app --host 0.0.0.0 --port 80 >api.log 2>&1 </dev/null &
+              nohup uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null &
 
               # get ip
               echo "[+] hosting website on http://${{ env.REMOTE_HOST }}:8000"
