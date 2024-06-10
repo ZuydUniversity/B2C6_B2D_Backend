@@ -1,6 +1,4 @@
 from App import initializeApp
-#from App.Models.Patient import Patient
-#from App.Routes.Patient_Router import Patient_Router
 app = initializeApp()
 
 # app.include_router(Patient_Router.router)

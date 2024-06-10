@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from uuid import UUID 
+#from uuid import UUID 
 
 class Patient(BaseModel):
-    id: UUID
+    id: int
     name: str
     surname: str
     email: str
