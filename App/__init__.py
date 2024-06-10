@@ -1,3 +1,12 @@
+# from fastapi import FastAPI
+# from .Routes import PatientRouter
+
+# def initializeApp():
+#     app = FastAPI()
+#     app.include_router(PatientRouter.router)
+#     return app
+
+
 from fastapi import FastAPI
 from .Routes import PatientRouter
 from fastapi.middleware.cors import CORSMiddleware

@@ -5,6 +5,9 @@ from sqlalchemy import Column, Integer, String
 from uuid import UUID
 
 from sqlalchemy import Column, Integer, String, Boolean
+from App.Data.Database import Base
+from sqlalchemy import Column, Integer, String
+from uuid import UUID
 
 class Zorgverlener(Base):
     __tablename__ = "zorgverleners"
