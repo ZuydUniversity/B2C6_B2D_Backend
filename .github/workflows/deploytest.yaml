@@ -132,7 +132,7 @@ jobs:
               	]
               }
           env:
-            SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP6}}
+            SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         
         - name: Notify Slack Failure
@@ -153,7 +153,7 @@ jobs:
               	]
               }
           env:
-            SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP6}}
+            SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 # name: Build and Deploy
 # on:
