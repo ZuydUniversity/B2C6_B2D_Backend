@@ -131,13 +131,13 @@ jobs:
             SLACK_WEBHOOK_URL: ${{secrets.SLACK_URL_GROEP6}}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-        - name: Notify Slack on Success
-          if: success()
-          run: |
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build succeeded 🎉"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+        # - name: Notify Slack on Success
+        #   if: success()
+        #   run: |
+        #     curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build succeeded 🎉"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
       
-        - name: Notify Slack on Failure
-          if: failure()
-          run: |
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build failed ❌"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+        # - name: Notify Slack on Failure
+        #   if: failure()
+        #   run: |
+        #     curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build failed ❌"}' ${{ secrets.SLACK_WEBHOOK_URL }}
