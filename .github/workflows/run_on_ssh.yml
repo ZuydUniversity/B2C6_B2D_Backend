@@ -66,8 +66,6 @@ jobs:
               # get ip
               echo "[+] hosting website on http://${{ env.REMOTE_HOST }}:8000"
 
-                      - name: Notify Slack
-          
         - id: slack
           uses: slackapi/slack-github-action@v1.26.0
           with:
