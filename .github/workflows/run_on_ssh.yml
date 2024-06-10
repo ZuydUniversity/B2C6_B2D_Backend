@@ -66,5 +66,28 @@ jobs:
               # get ip
               echo "[+] hosting website on http://${{ env.REMOTE_HOST }}:8000"
 
+                      - name: Notify Slack
+          
+        - id: slack
+          uses: slackapi/slack-github-action@v1.26.0
+          with:
+            # This data can be any valid JSON from a previous step in the GitHub Action
+            payload: |
+              {
+                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    }
+                  }
+                ]
+              }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
               # stop ssh session (complete workflow step)
               exit
