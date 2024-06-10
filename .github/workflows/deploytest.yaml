@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - "geen"
+      - "groep6_b2d_mitch"
 
 env:
   HOST: 52.232.64.59
