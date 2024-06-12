@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .Routes import ZorgverlenerRoute
+from .Routes import PatientRoute
 from fastapi.middleware.cors import CORSMiddleware
 from .Data import DatabaseModels
 from .Data.Database import engine
@@ -12,7 +12,7 @@ def initializeApp():
 
     app = FastAPI()
 
-    app.include_router(ZorgverlenerRoute.router)
+    app.include_router(PatientRoute.router)
     
     app.add_middleware(
     CORSMiddleware,

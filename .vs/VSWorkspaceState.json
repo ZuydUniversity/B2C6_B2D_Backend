@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\App",
+    "\\App\\Data",
+    "\\App\\Models",
+    "\\App\\Repos",
+    "\\App\\Routes",
+    "\\Tests"
+  ],
+  "SelectedNode": "\\.github\\workflows\\build-deploy.yml",
+  "PreviewInSolutionExplorer": false
+}
