@@ -108,7 +108,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GH workflow `codeql`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.main.result }}>"
+                    "text": "GH workflow `codeql`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.analyze.result }}>"
                   }
                 }
               ]
