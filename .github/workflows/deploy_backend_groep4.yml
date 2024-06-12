@@ -57,7 +57,7 @@ jobs:
           exit
 
       - name: Wait for server to reboot
-        run: sleep 20
+        run: sleep 5
 
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
