@@ -13,9 +13,9 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [  "39-static-analyzer-workflow", "Groep-2" ]
+    branches: [  "49-webhook-slack-integratie", "Groep-2" ]
   pull_request:
-    branches: [ "39-static-analyzer-workflow", "Groep-2" ]
+    branches: [ "49-webhook-slack-integratie", "Groep-2" ]
   schedule:
     - cron: '20 23 * * 5'
 
@@ -91,3 +91,21 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+
+    - uses: slackapi/slack-github-action@v1.26.0
+      with:
+        # This data can be any valid JSON from a previous step in the GitHub Action
+        payload: |
+          {
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
+                }
+              }
+            ]
+          }
