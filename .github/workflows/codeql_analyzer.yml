@@ -92,20 +92,28 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
 
-
-    - uses: slackapi/slack-github-action@v1.26.0
-      with:
-        # This data can be any valid JSON from a previous step in the GitHub Action
-        payload: |
-          {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "GH workflow `codeql`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
+  notify:
+    runs-on: ubuntu-20.04
+    needs: analyze
+    if: ${{ always() }}
+    steps:
+      - uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GH workflow `codeql`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.main.result }}>"
+                  }
                 }
-              }
-            ]
-          }
+              ]
+            }
+
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
