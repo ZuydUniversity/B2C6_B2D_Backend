@@ -87,7 +87,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.main.result }}>"
+                    "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.run_on_ssh.result }}>"
                   }
                 }
               ]
