@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-linters:
+  main:
     name: Run linters
     runs-on: ubuntu-latest
 
@@ -26,6 +26,7 @@ jobs:
 
   notify:
     runs-on: ubuntu-20.04
+    needs: [main]
     steps:
       - uses: slackapi/slack-github-action@v1.26.0
         with:
@@ -38,7 +39,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GH workflow `linter`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
+                    "text": "GH workflow `linter`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.main.result }}>"
                   }
                 }
               ]
