@@ -90,7 +90,7 @@ name: Deploy Test
 on:
   push:
     branches:
-      - "groep_6_b2d_Hassan"
+      - "groep6_b2d_Hassan"
 
 env:
   HOST: 52.232.64.59
@@ -98,7 +98,7 @@ env:
   SERVER_PASSWORD: Welkom123456!
 
 concurrency:
-  group: groep_6_B2D
+  group: groep6_b2d
   cancel-in-progress: false
 
 
