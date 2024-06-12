@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\.github",
-    "\\.github\\workflows",
-    "\\App",
-    "\\App\\Data",
-    "\\App\\Models",
-    "\\App\\Repos",
-    "\\App\\Routes",
-    "\\Tests"
+    ""
   ],
-  "SelectedNode": "\\.github\\workflows\\build-deploy.yml",
+  "SelectedNode": "\\C:\\Users\\annab\\Source\\Repos\\B2C6_B2D_Backend1",
   "PreviewInSolutionExplorer": false
 }
