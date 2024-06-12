@@ -5,6 +5,10 @@ on:
     branches:
       - Dev-Group-4
 
+concurrency:
+  group: Dev-Group-4
+  cancel-in-progress: false
+
 jobs:
   build-backend:
     runs-on: ubuntu-latest
@@ -100,13 +104,14 @@ jobs:
           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
+              ( cd Frontend ; nohup sudo npm run dev -- -p 80 >frontend.log 2>&1 </dev/null & )
 
-      - name: Notify Slack on Success
-        if: success()
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
+      #- name: Notify Slack on Success
+       # if: success()
+        #run: |
+         # curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
 
-      - name: Notify Slack on Failure
-        if: failure()
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
+      #- name: Notify Slack on Failure
+       # if: failure()
+       # run: |
+        #  curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
