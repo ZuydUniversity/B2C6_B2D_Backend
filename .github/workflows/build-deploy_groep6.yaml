@@ -90,7 +90,7 @@ name: Deploy Test
 on:
   push:
     branches:
-      - "groep_6_B2D"
+      - "groep_6_B2D_Hassan"
 
 env:
   HOST: 52.232.64.59
