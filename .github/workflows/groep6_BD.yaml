@@ -202,44 +202,44 @@ jobs:
               ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
               ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
 
-        - name: Notify Slack Success
-          if: ${{ success() }}
-          id: slack-success
-          uses: slackapi/slack-github-action@v1.26.0
-          with:
-            payload: |
-              {
-              	"blocks": [
-              		{
-              			"type": "section",
-              			"text": {
-              				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
-              			}
-              		}
-              	]
-              }
-          env:
-            SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
-            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        # - name: Notify Slack Success
+        #   if: ${{ success() }}
+        #   id: slack-success
+        #   uses: slackapi/slack-github-action@v1.26.0
+        #   with:
+        #     payload: |
+        #       {
+        #       	"blocks": [
+        #       		{
+        #       			"type": "section",
+        #       			"text": {
+        #       				"type": "mrkdwn",
+        #       				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 🎉 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
+        #       			}
+        #       		}
+        #       	]
+        #       }
+        #   env:
+        #     SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
+        #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         
-        - name: Notify Slack Failure
-          if: ${{ failure() }}
-          id: slack-failure
-          uses: slackapi/slack-github-action@v1.26.0
-          with:
-            payload: |
-              {
-              	"blocks": [
-              		{
-              			"type": "section",
-              			"text": {
-              				"type": "mrkdwn",
-              				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 😞 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
-              			}
-              		}
-              	]
-              }
-          env:
-            SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
-            SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        # - name: Notify Slack Failure
+        #   if: ${{ failure() }}
+        #   id: slack-failure
+        #   uses: slackapi/slack-github-action@v1.26.0
+        #   with:
+        #     payload: |
+        #       {
+        #       	"blocks": [
+        #       		{
+        #       			"type": "section",
+        #       			"text": {
+        #       				"type": "mrkdwn",
+        #       				"text": "*GitHub Action Build and Deploy Result:* ${{Job.Status}} 😞 \n*Commit:* [Link](${{ github.event.head_commit.url }})"
+        #       			}
+        #       		}
+        #       	]
+        #       }
+        #   env:
+        #     SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
+        #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
