@@ -33,6 +33,6 @@ class PatientRepo:
 
 
     async def delete_patient(self, id: int):
-        verwijderd = self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).delete()
+        deleted = self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).delete()
         self.db.commit()
-        return verwijderd
+        return deleted
