@@ -5,10 +5,6 @@ on:
     branches:
       - Dev-Group-4
 
-concurrency:
-  group: Dev-Group-4
-  cancel-in-progress: false
-
 jobs:
   build-backend:
     runs-on: ubuntu-latest
