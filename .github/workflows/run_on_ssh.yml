@@ -2,8 +2,9 @@ name: run_on_ssh
 
 on:
   push:
+  pull_request:
   workflow_dispatch:
-
+  
 env:
   LOCAL_DIST: "/tmp/dist"
   REMOTE_HOST: "108.142.148.168"
