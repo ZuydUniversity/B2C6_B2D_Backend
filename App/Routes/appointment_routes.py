@@ -1,37 +1,27 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from ..Models.appointment_model import Appointment
-from ..Repos.appointment_repo import create_appointment, read_appointment, update_appointment, delete_appointment
+from ..Repos.appointment_repo import create_appointment, read_appointment, update_appointment, delete_appointment, readall_appointments
+from datetime import datetime
 
 router = APIRouter()
 
-sim_data: List[Appointment] = []
-
-@router.post("/appointments/", response_model= Appointment)
-def create_appointment(appointment: Appointment):
-    sim_data.append(appointment)
-    return appointment
+@router.post("/appointments/", response_model=Appointment)
+def create_appointment_route(id: int, name: str, description: str, location: str, department: str, date: datetime):
+    return create_appointment(id, name, description, location, department, date)
 
 @router.get("/appointments/", response_model=List[Appointment])
-def read_appointments():
-    return sim_data
+def read_appointments_route():
+    return readall_appointments()
 
-@router.get("/appointments/{id}", response_model=Appointment) ### DEZE IS AAN DATABASE GEKOPPELD ###
+@router.get("/appointments/{id}", response_model=Appointment)
 def read_appointment_route(id: int):
     return read_appointment(id)
 
-@router.put("/appointments/{appointment_id}", response_model=Appointment)
-def update_appointment(appointment_id: int, appointment: Appointment):
-    for index, existing_appointment in enumerate(sim_data):
-        if existing_appointment.id == appointment_id:
-            sim_data[index] = appointment
-            appointment.id = appointment_id
-            return appointment
-    raise HTTPException(status_code=404, detail="Appointment not found")  
+@router.put("/appointments/{id}", response_model=Appointment)
+def update_appointment_route(id: int, name: str, description: str, location: str, department: str, date: datetime):
+    return update_appointment(id, name, description, location, department, date)
 
-@router.delete("/appointments/{appointment_id}", response_model=Appointment)
-def delete_appointment(appointment_id: int):
-    for index, appointment in enumerate(sim_data):
-        if appointment.id == appointment_id:
-            return sim_data.pop(index)
-    raise HTTPException(status_code=404, detail="Appointment not found")   
+@router.delete("/appointments/{id}", response_model=Appointment)
+def delete_appointment_route(id: int):
+    return delete_appointment(id)
