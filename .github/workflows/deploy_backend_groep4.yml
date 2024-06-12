@@ -104,7 +104,6 @@ jobs:
           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
-              ( cd Frontend ; nohup sudo npm run dev -- -p 80 >frontend.log 2>&1 </dev/null & )
 
       #- name: Notify Slack on Success
        # if: success()
