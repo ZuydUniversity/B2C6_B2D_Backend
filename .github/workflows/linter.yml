@@ -24,6 +24,9 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{Secrets.GITHUB_TOKEN}}
 
+  notify:
+    runs-on: ubuntu-20.04
+    steps:
       - uses: slackapi/slack-github-action@v1.26.0
         with:
           # This data can be any valid JSON from a previous step in the GitHub Action
