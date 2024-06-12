@@ -2,8 +2,9 @@ name: run_on_ssh
 
 on:
   push:
+  pull_request:
   workflow_dispatch:
-
+  
 env:
   LOCAL_DIST: "/tmp/dist"
   REMOTE_HOST: "108.142.148.168"
@@ -71,20 +72,28 @@ jobs:
               # stop ssh session (complete workflow step)
               exit
 
-        - id: slack
-          uses: slackapi/slack-github-action@v1.26.0
-          with:
-            # This data can be any valid JSON from a previous step in the GitHub Action
-            payload: |
-              {
-                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
-                    }
+  notify:
+    runs-on: ubuntu-20.04
+    needs: run_on_ssh
+    if: ${{ always() }}
+    steps:
+      - uses: slackapi/slack-github-action@v1.26.0
+        with:
+          # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: |
+            {
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.run_on_ssh.result }}>"
                   }
-                ]
-              }
+                }
+              ]
+            }
+
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
