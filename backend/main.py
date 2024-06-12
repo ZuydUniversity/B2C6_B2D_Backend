@@ -5,6 +5,10 @@ from sqlalchemy.orm import Session
 
 app = FastAPI()
 
+# runnen met uvicorn = uvicorn backend.main:app --reload
+
+
+
 #Commands:
 #Enviroment= python -m venv env  Starten Enviroment= env\Scripts\activate.bat
 #pip install fastapi uvicorn sqlalchemy pymysql
@@ -14,7 +18,7 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello World"}
 
-def create_report(db_session: Session, date, healthcomplaints, medicalhistory, diagnose): #run python main.py
+def create_report(db_session: Session, date, healthcomplaints, medicalhistory, diagnose): #run python -m backend.main
     report = Report(
         date=date,
         healthcomplaints=healthcomplaints,
@@ -74,4 +78,4 @@ if __name__ == "__main__":
     db.close()
 
 
-  #kom op waarom doet ie het niet
+  

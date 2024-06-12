@@ -30,23 +30,46 @@ jobs:
       id: run_tests
       run: pytest backend/tests/update_report_test.py
 
-    - name: Slack Notification on Success!
+    - name: Run safety tests
+      id: run_safety_tests
+      run: |
+        pip install safety
+        pip install --upgrade safety
+        safety check > safety_output.txt || echo "Vulnerabilities found"
+
+    - name: Check Safety Output
+      id: check_safety
+      run: |
+        if grep -q "Vulnerabilities found" safety_output.txt; then
+          echo "vulnerabilities_found=true" >> $GITHUB_ENV
+          echo "::set-output name=vulnerabilities_found::true"
+        else
+          echo "vulnerabilities_found=false" >> $GITHUB_ENV
+          echo "::set-output name=vulnerabilities_found::false"
+        fi
+
+    - name: Slack Notification on Success
       if: success()
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_COLOR: good
         SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
-        SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
+        SLACK_MESSAGE: |
+          Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
+          Unit Test Result: Success
+          Vulnerabilities Found: ${{ steps.check_safety.outputs.vulnerabilities_found }}
         SLACK_TITLE: 'Unit Test Success'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
 
-    - name: Slack Notification on Failure!
+    - name: Slack Notification on Failure
       if: failure()
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_COLOR: danger
         SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
-        SLACK_MESSAGE: 'Test Automation Report https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}'
+        SLACK_MESSAGE: |
+          Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
+          Unit Test Result: Failure
+          Vulnerabilities Found: ${{ steps.check_safety.outputs.vulnerabilities_found }}
         SLACK_TITLE: 'Unit Test Failure'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
-
