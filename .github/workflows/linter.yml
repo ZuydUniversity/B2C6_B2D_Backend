@@ -9,10 +9,6 @@ on:
    # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
-  SLACK_WEBHOOK_TYPE: "INCOMING_WEBHOOK"
-
 jobs:
   run-linters:
     name: Run linters
@@ -45,3 +41,7 @@ jobs:
                     "text": "GH workflow `linter`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
                   }
                 }
+
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
