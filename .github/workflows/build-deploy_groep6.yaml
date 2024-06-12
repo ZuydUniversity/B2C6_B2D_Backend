@@ -243,4 +243,3 @@ jobs:
           env:
             SLACK_WEBHOOK_URL: ${{secrets.GROEP_6_SLACK_WEBHOOK}}
             SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
- 
