@@ -9,7 +9,7 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "CodeQL"
+name: "codeql"
 
 on:
   push:
@@ -104,7 +104,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "GH workflow `run_on_ssh`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
+                  "text": "GH workflow `codeql`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ job.status }}>"
                 }
               }
             ]
