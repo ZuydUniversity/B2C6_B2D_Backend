@@ -91,9 +91,9 @@ jobs:
       - name: Notify Slack on Success
         if: success()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.SLACK_URL_GROEP4 }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
 
       - name: Notify Slack on Failure
         if: failure()
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.SLACK_URL_GROEP4 }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
