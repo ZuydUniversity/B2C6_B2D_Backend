@@ -26,31 +26,26 @@ jobs:
         pip install fastapi uvicorn sqlalchemy pymysql
         pip install pytest pytest-cov pytest-mock
 
-
     - name: Run tests
       id: run_tests
       run: pytest backend/tests/update_report_test.py
 
-    - name: Install safety
+    - name: Run safety tests
+      id: run_safety_tests
       run: |
         pip install safety
         pip install --upgrade safety
-
-    - name: Run safety check
-      id: run_safety_check
-      run: |
-        safety check > safety_output.txt
-      continue-on-error: true
+        safety check > safety_output.txt || echo "Vulnerabilities found"
 
     - name: Check Safety Output
-      id: check_safety_output
+      id: check_safety
       run: |
-        if grep -q "No known security vulnerabilities found." safety_output.txt; then
-          echo "vulnerabilities_found=false" >> $GITHUB_ENV
-          echo "::set-output name=vulnerabilities_found::false"
-        else
+        if grep -q "Vulnerabilities found" safety_output.txt; then
           echo "vulnerabilities_found=true" >> $GITHUB_ENV
           echo "::set-output name=vulnerabilities_found::true"
+        else
+          echo "vulnerabilities_found=false" >> $GITHUB_ENV
+          echo "::set-output name=vulnerabilities_found::false"
         fi
 
     - name: Slack Notification on Success
@@ -62,7 +57,7 @@ jobs:
         SLACK_MESSAGE: |
           Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
           Unit Test Result: Success
-          Vulnerabilities Found: ${{ steps.check_safety_output.outputs.vulnerabilities_found }}
+          Vulnerabilities Found: ${{ steps.check_safety.outputs.vulnerabilities_found }}
         SLACK_TITLE: 'Unit Test Success'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
 
@@ -75,6 +70,6 @@ jobs:
         SLACK_MESSAGE: |
           Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
           Unit Test Result: Failure
-          Vulnerabilities Found: ${{ steps.check_safety_output.outputs.vulnerabilities_found }}
+          Vulnerabilities Found: ${{ steps.check_safety.outputs.vulnerabilities_found }}
         SLACK_TITLE: 'Unit Test Failure'
         SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
