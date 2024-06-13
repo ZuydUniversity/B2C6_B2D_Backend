@@ -16,4 +16,4 @@ def resultaat_delete_by_id(user_id: UUID) -> None:
     if not existing_resultaat:
         return None
     
-    resultaat_delete_data_by_id(user_id)    
+    resultaat_delete_data_by_id(user_id)
