@@ -5,6 +5,10 @@ on:
     branches:
       - Dev-Group-4
 
+concurrency:
+  group: Dev-Group-4
+  cancel-in-progress: false
+
 jobs:
   build-backend:
     runs-on: ubuntu-latest
@@ -99,6 +103,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
+              ( cd Frontend ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
 
       - name: Notify Slack on Success
