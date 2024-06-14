@@ -18,6 +18,6 @@ class Resultaat(Base):
     
     id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
     name = Column(String(50), nullable=False)
-    Date = Column(String(50), nullable=False)
-    Discroption = Column(String(100), unique=False, nullable=False)
+    date = Column(String(50), nullable=False)
+    discription = Column(String(100), unique=False, nullable=False)
     #onderzoek fk
