@@ -5,6 +5,8 @@ from .Data import DatabaseModels
 from .Data.Database import engine
 
 
+from App.Routes.resultaat import router as resultaat_router
+
 def initializeApp():
     origins = ["*"]
 

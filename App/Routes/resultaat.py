@@ -5,9 +5,6 @@ from App.Models.resultaat import Resultaat
 from App.Data.Database import get_db
 from sqlalchemy.orm import Session
 
-
-
-
 router = APIRouter(prefix ="/resultaten")
 
 test_save = []
