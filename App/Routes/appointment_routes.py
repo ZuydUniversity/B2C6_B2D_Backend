@@ -1,27 +1,34 @@
-from fastapi import APIRouter, HTTPException
-from typing import List, Optional
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+from App.Data.database import get_db
+from App.Repos.appointment_repo import AppointmentRepo as appointmentrepo
 from ..Models.appointment_model import Appointment
-from ..Repos.appointment_repo import create_appointment, read_appointment, update_appointment, delete_appointment, readall_appointments
-from datetime import datetime
+
 
 router = APIRouter()
 
-@router.post("/appointments/", response_model=Appointment)
-def create_appointment_route(name: str, description: str, location: str, department: str, date: datetime):
-    return create_appointment(name, description, location, department, date)
+@router.get("/appointments/")
+def get_appointments(db: Session = Depends(get_db)):
+    appointments = appointmentrepo.get_appointments(db)
+    return appointments
 
-@router.get("/appointments/", response_model=List[Appointment])
-def read_appointments_route():
-    return readall_appointments()
+@router.get("/appointments/{id}")
+def get_appointmentById(id: int, db: Session = Depends(get_db)):
+    appointment = appointmentrepo.get_appointment_by_id(id, db)
+    return appointment
 
-@router.get("/appointments/{id}", response_model=Appointment)
-def read_appointment_route(id: int):
-    return read_appointment(id)
+@router.post("/appointments/")
+def create_appointment(appointment: Appointment, db: Session = Depends(get_db)):
+    new_appointment = appointmentrepo.create_appointment(appointment, db)
+    return new_appointment
 
-@router.put("/appointments/{id}", response_model=Appointment)
-def update_appointment_route(id: int, name: str, description: str, location: str, department: str, date: datetime):
-    return update_appointment(id, name, description, location, department, date)
+@router.put("/appointments/{id}")
+def update_appointment(id: int, appointment: Appointment, db: Session = Depends(get_db)):
+    updated_appointment = appointmentrepo.update_appointment(id, appointment, db)
+    return updated_appointment
 
-@router.delete("/appointments/{id}", response_model=Appointment)
-def delete_appointment_route(id: int):
-    return delete_appointment(id)
+@router.delete("/appointments/{id}")
+def delete_appointment(id: int, db: Session = Depends(get_db)):
+    isDeleted = appointmentrepo.delete_appointment(id, db)
+    if isDeleted:
+        return f"Appointment with id: {id} has been deleted."

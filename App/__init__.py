@@ -1,7 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from App.Data import databaseModels
+from App.Data.database import engine
 
 def initializeApp():
+    
+    databaseModels.Base.metadata.create_all(bind=engine)
+
     app = FastAPI()
     origins = [
     "http://localhost:3000",
