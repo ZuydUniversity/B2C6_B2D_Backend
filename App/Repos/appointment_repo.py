@@ -15,15 +15,13 @@ class Appointment(Base):
     department = Column(String(255))
     date = Column(DateTime)
 
-# engine = create_engine('mysql+pymysql://Yurr:YurrPassword@163.123.183.82:10025/B2C6')
 engine = create_engine('mariadb+mariadbconnector://Yurr:YurrPassword@163.123.183.82:10025/B2C6')
 Session = sessionmaker(bind=engine)
 session = Session()
 
 # CRUD functionaliteiten 
-def create_appointment(id: int, name: str, description: str, location: str, department: str, date: datetime):
+def create_appointment(name: str, description: str, location: str, department: str, date: datetime):
     appointment = Appointment(
-        id=id,
         name=name,
         description=description,
         location=location,
@@ -32,6 +30,7 @@ def create_appointment(id: int, name: str, description: str, location: str, depa
     )
     try:
         session.add(appointment)
+        session.refresh()
         session.commit()
         return appointment
     except SQLAlchemyError as e:

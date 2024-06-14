@@ -7,8 +7,8 @@ from datetime import datetime
 router = APIRouter()
 
 @router.post("/appointments/", response_model=Appointment)
-def create_appointment_route(id: int, name: str, description: str, location: str, department: str, date: datetime):
-    return create_appointment(id, name, description, location, department, date)
+def create_appointment_route(name: str, description: str, location: str, department: str, date: datetime):
+    return create_appointment(name, description, location, department, date)
 
 @router.get("/appointments/", response_model=List[Appointment])
 def read_appointments_route():
