@@ -34,7 +34,8 @@ async def add_Resultaat(resultaat: Resultaat, db:Session = Depends(get_db)):
     return {"resultaat_name": resultaat.name}
 
 #delete by id
-# @router.delete("/resultaat/{id}", response_model=dict)
-# async def delete_resultaat(id: UUID):
-#     resultaat_delete_by_id(id)  
-#     return {"detail": "Resultaat is met succes verwijderd"}
+@router.delete("/resultaat/{id}", response_model=dict)
+async def delete_resultaat(id: int, db: Session = Depends(get_db)):
+    repo = ResultaatRepo(db)
+    await repo.delete_resultaat_by_id(id)
+    return {"detail": "Resultaat is met succes verwijderd"}

@@ -28,4 +28,10 @@ class ResultaatRepo:
     #update
 
     #delete
-
+    async def delete_Resultaat(self, id: int):
+        resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
+        if resultaat:
+            self.db.delete(resultaat)
+            self.db.commit()
+            return True
+        return False
