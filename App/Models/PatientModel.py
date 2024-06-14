@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-#from uuid import UUID 
 
 class Patient(BaseModel):
     id: int
@@ -11,7 +10,3 @@ class Patient(BaseModel):
     housenumber: str
     city: str
     telephonenumber: int
-
-    
-
-
