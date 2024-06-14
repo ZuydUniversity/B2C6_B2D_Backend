@@ -6,6 +6,9 @@ def initializeApp():
     origins = [
     "http://localhost:3000",
     "http://localhost",
+    "http://98.71.218.67:8000/",
+    "http://98.71.218.67",
+
 
     ]
 

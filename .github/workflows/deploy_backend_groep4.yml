@@ -5,6 +5,10 @@ on:
     branches:
       - Dev-Group-4
 
+concurrency:
+  group: Dev-Group-4
+  cancel-in-progress: false
+
 jobs:
   build-backend:
     runs-on: ubuntu-latest
@@ -46,43 +50,43 @@ jobs:
           name: Backend
           path: Backend
 
-     # - name: Reboot Server
-      #  uses: appleboy/ssh-action@v1.0.3
-       # with:
-        # host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-         #username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-         #password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-        # script: |
-         # sudo reboot
-         # exit
+      - name: Reboot Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+         host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+         username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+         password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+         script: |
+          sudo reboot
+          exit
 
-     # - name: Wait for server to reboot
-      #  run: sleep 5
+      - name: Wait for server to reboot
+        run: sleep 20
 
-      #- name: Clean Old Artefact
-       # uses: appleboy/ssh-action@v1.0.3
-        #with:
-         # host: 98.71.218.67
-          #username: groep4user
-          #password: WelkomWelkom123!
-         #script: |
-          #    sudo rm -rf Backend
+      - name: Clean Old Artefact
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+         host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+         username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+         password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+         script: |
+          sudo rm -rf Backend
 
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
         with:
            local: Backend
            remote: Backend
-           host: 98.71.218.67
-           username: groep4user
-           password: WelkomWelkom123!
+           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
            
       - name: Install dependencies on VM
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 98.71.218.67
-          username: groep4user
-          password: WelkomWelkom123!
+          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
               sudo apt install python3-pip -y
               python -m pip install --upgrade pip
@@ -95,18 +99,19 @@ jobs:
       - name: Start API
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 98.71.218.67
-          username: groep4user
-          password: WelkomWelkom123!
+          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
+              ( cd Frontend ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
 
-      #- name: Notify Slack on Success
-       # if: success()
-        #run: |
-         # curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
+      - name: Notify Slack on Success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build succeeded :tada:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
 
-      #- name: Notify Slack on Failure
-       # if: failure()
-       # run: |
-        #  curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
+      - name: Notify Slack on Failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Backend build failed :x:"}' ${{ secrets.GROEP_4_SLACK_WEBHOOK }}
