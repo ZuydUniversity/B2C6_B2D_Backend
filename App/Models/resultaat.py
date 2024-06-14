@@ -1,4 +1,4 @@
-from pydantic import BaseModel, PastDate, UUID
+from pydantic import BaseModel, PastDate, UUID5
 
 class Resultaat(BaseModel):
     #id: UUID5
