@@ -46,21 +46,6 @@ jobs:
           name: Backend
           path: Backend
 
-      - name: Reboot Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-         host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-         username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-         password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-         script: |
-          sudo reboot
-          exit
-
-
-      - name: Wait for server to reboot
-        run: sleep 20
-
-
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -94,7 +79,7 @@ jobs:
               cd Backend
               sudo pip install -r requirements.txt
 
-      - name: Start API
+      - name: Start backend & frontend
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
