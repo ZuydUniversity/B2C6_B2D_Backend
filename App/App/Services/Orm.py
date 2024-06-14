@@ -8,4 +8,10 @@ def resultaat_get_by_id(user_id: UUID) -> ResultaatBase:
     RESULTAAT: ResultaatBase = ...
     
     return RESULTAAT
+
+def resultaat_delete_by_id(user_id: UUID) -> None:
+    existing_resultaat = resultaat_get_data_by_id(user_id)
+    if not existing_resultaat:
+        return None
     
+    resultaat_delete_data_by_id(user_id)
