@@ -8,7 +8,4 @@ class Patient(BaseModel):
     gender: str
     address: str
     city: str
-    email: str
-    diagnosis: str
-    medication: str
-    phonenumber: int
+    telephonenumber: int
