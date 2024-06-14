@@ -15,7 +15,8 @@ class Appointment(Base):
     department = Column(String(255))
     date = Column(DateTime)
 
-engine = create_engine('mysql+pymysql://Yurr:YurrPassword@163.123.183.82:10025/B2C6')
+# engine = create_engine('mysql+pymysql://Yurr:YurrPassword@163.123.183.82:10025/B2C6')
+engine = create_engine('mariadb+mariadbconnector://Yurr:YurrPassword@163.123.183.82:10025/B2C6')
 Session = sessionmaker(bind=engine)
 session = Session()
 
