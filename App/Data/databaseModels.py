@@ -2,7 +2,7 @@ from .database import Base
 from sqlalchemy import Column, Integer, String, DateTime
 from cryptography.fernet import Fernet
 
-key = b'8Si3VdwLHS3I79BT_TnxDqAKw_5vnimPHxwZycDDLrk='
+key = b'LX5sZIVoLTEa_Cmsl8DDAFBodF5m3B6VjVSP-Gin4xc='
 cipher_suite = Fernet(key)
 
 class Appointment(Base):
