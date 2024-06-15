@@ -7,9 +7,8 @@
     "\\App\\Data",
     "\\App\\Models",
     "\\App\\Repos",
-    "\\App\\Routes",
-    "\\Tests"
+    "\\App\\Routes"
   ],
-  "SelectedNode": "\\.github\\workflows\\build-deploy.yml",
+  "SelectedNode": "\\App\\__init__.py",
   "PreviewInSolutionExplorer": false
 }

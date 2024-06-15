@@ -1,4 +1,6 @@
-from App import initializeApp
+from fastapi import FastAPI
+from .Routes import PatientRoute
 
-app = initializeApp()
+app = FastAPI()
 
+app.include_router(PatientRoute.router)
