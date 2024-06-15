@@ -19,6 +19,8 @@ class AppointmentRepo:
     
     def create_appointment(appointment: Appointment, db: Session):
         new_appointment = dbmodels.Appointment(**appointment.model_dump())
+        new_appointment.encrypt()
+
         db.add(new_appointment)
         db.commit()
         db.refresh(new_appointment)
@@ -27,8 +29,8 @@ class AppointmentRepo:
     def update_appointment(id: int, appointment: Appointment, db: Session):
         appointment.id = id
         query = db.query(dbmodels.Appointment).filter(dbmodels.Appointment.id == id)
-        updated_appointment = query.first()
-        if updated_appointment == None:
+        existing_appointment = query.first()
+        if existing_appointment == None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail=f"Appointment with id: {id} does not exist")
 
