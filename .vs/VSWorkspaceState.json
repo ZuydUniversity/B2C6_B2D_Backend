@@ -9,6 +9,6 @@
     "\\App\\Repos",
     "\\App\\Routes"
   ],
-  "SelectedNode": "\\App\\__init__.py",
+  "SelectedNode": "\\.github\\workflows\\build-deploy.yml",
   "PreviewInSolutionExplorer": false
 }

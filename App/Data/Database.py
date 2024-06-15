@@ -1,10 +1,17 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost:3306/db2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/db2"
 
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Initialize the database
 db = SQLAlchemy(app)
 
 # Import models
@@ -93,3 +100,6 @@ def delete_patient(id):
     db.session.delete(patient)
     db.session.commit()
     return jsonify({'message': 'Patient deleted'})
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
