@@ -5,11 +5,6 @@ from App.Models.resultaat import Resultaat
 from App.Data.Database import get_db
 from sqlalchemy.orm import Session
 
-# from App.Models.resultaat import ResultaatBase
-# from App.Services.dal import resultaat_get_by_id, resultaat_update_by_id
-
-
-
 router = APIRouter(prefix ="/resultaten")
 
 test_save = []
