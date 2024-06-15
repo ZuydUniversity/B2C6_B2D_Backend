@@ -19,4 +19,10 @@ class Appointment(Base):
         self.description = cipher_suite.encrypt(self.description.encode()).decode()
         self.location = cipher_suite.encrypt(self.location.encode()).decode()
         self.department = cipher_suite.encrypt(self.department.encode()).decode()
+
+    def decrypt(self):
+        self.name = cipher_suite.decrypt(self.name.encode()).decode()
+        self.description = cipher_suite.decrypt(self.description.encode()).decode()
+        self.location = cipher_suite.decrypt(self.location.encode()).decode()
+        self.department = cipher_suite.decrypt(self.department.encode()).decode()
         
