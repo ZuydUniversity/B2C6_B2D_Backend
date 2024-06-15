@@ -38,3 +38,10 @@ async def add_Resultaat(resultaat: Resultaat, db:Session = Depends(get_db)):
 # async def delete_resultaat(id: UUID):
 #     resultaat_delete_by_id(id)  
 #     return {"detail": "Resultaat is met succes verwijderd"}
+@router.put("/{id}")
+async def update_Resultaat(id: int, resultaat: Resultaat, db: Session = Depends(get_db)):
+    repo = ResultaatRepo(db)
+    updated_resultaat = await repo.update_Resultaat(id, resultaat)
+    if not updated_resultaat:
+        raise HTTPException(status_code=404, detail="Resultaat not found")
+    return updated_resultaat

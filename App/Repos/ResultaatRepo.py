@@ -26,6 +26,14 @@ class ResultaatRepo:
         return Resultaat
 
     #update
-
+    async def update_Resultaat(self, id: int, resultaat_data: Resultaat):
+        resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
+        if resultaat:
+            for key, value in resultaat_data.dict(exclude_unset=True).items():
+                setattr(resultaat, key, value)
+            self.db.commit()
+            self.db.refresh(resultaat)
+            return resultaat
+        return None 
     #delete
 
