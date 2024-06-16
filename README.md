@@ -21,7 +21,7 @@ Pas de DATABASE_URL aan in je configuratiebestand of als omgevingsvariabele om t
 `DATABASE_URL=mysql+pymysql://<username>:<password>@<host>:<port>/<database_name>`
 
 
-Run
+### Run:
 dev mode:
 fastapi dev main.py
 
