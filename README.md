@@ -3,9 +3,7 @@ GROEP 5-Backend
 Inleiding
 Dit project bevat de backend voor het verwerken van patiënteninformatie, gebruikmakend van een MySQL database. De backend biedt CRUD-functionaliteiten (Create, Read, Update, Delete). De backend is via een API gekoppeld aan de frontend van Groep 5.
 
-Vereisten
 Zorg ervoor dat je de volgende software hebt geïnstalleerd:
-
 Python 3.7+
 MySQL
 Pip (Python package installer)
@@ -23,9 +21,8 @@ Pas de DATABASE_URL aan in je configuratiebestand of als omgevingsvariabele om t
 (DATABASE_URL=mysql+pymysql://<username>:<password>@<host>:<port>/<database_name>)
 
 
-run
+Run
 dev mode:
-
 fastapi dev main.py
 
 prod mode:
