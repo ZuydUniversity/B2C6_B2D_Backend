@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+#### Acties op Github Runnner
       - name: Checkout code
         uses: actions/checkout@v4
         
@@ -45,7 +46,8 @@ jobs:
         with:
           name: Backend
           path: Backend
-
+          
+#### Acties op VM
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -58,7 +60,9 @@ jobs:
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
         with:
+#### Runner 
            local: Backend
+#### Azure VM
            remote: Backend
            host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
            username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
