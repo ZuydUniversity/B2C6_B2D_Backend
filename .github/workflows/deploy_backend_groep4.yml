@@ -46,15 +46,6 @@ jobs:
         with:
           name: Backend
           path: Backend
-          
-      - name: Clean Old Artefact
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-           host: 20.160.97.126
-           username: groep4user
-           password: WelkomWelkom123!
-           script: |
-            sudo rm -rf Backend
 
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
