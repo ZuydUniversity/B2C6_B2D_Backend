@@ -49,6 +49,19 @@ jobs:
           path: Backend
           
 #### Acties op VM
+      - name: Reboot Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
+           script: |
+            sudo reboot
+            exit
+
+      - name: Wait for server to reboot
+        run: sleep 20
+
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -83,19 +96,6 @@ jobs:
               sudo apt install libmariadb3 libmariadb-dev -y
               cd Backend
               sudo pip install -r requirements.txt
-
-      - name: Reboot Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-           host: 20.160.97.126
-           username: groep4user
-           password: WelkomWelkom123!
-           script: |
-            sudo reboot
-            exit
-
-      - name: Wait for server to reboot
-        run: sleep 20
 
       - name: Start backend & Frontend
         uses: appleboy/ssh-action@v1.0.3
