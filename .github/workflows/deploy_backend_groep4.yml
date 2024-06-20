@@ -51,11 +51,11 @@ jobs:
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
-         host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-         username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-         password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-         script: |
-          sudo rm -rf Backend
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
+           script: |
+            sudo rm -rf Backend
 
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
@@ -64,17 +64,17 @@ jobs:
            local: Backend
 #### Azure VM
            remote: Backend
-           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
            
       - name: Install dependencies on VM
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-          script: |
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
+           script: |
               sudo apt install python3-pip -y
               python -m pip install --upgrade pip
               pip install mariadb
@@ -83,13 +83,26 @@ jobs:
               cd Backend
               sudo pip install -r requirements.txt
 
+      - name: Reboot Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
+           script: |
+            sudo reboot
+            exit
+
+      - name: Wait for server to reboot
+        run: sleep 20
+
       - name: Start backend
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-          script: |
+           host: 20.160.97.126
+           username: groep4user
+           password: WelkomWelkom123!
+           script: |
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
 
       - name: Notify Slack on Success
