@@ -5,21 +5,32 @@ app = initializeApp()
 if __name__ == "__main__":
     db = SessionLocal()
 
-    # Create
-    new_report = VerslagenRepo.add_verslag(db, date="2026-7-8", healthcomplaints="Headache, nausea", medicalhistory="niets1", diagnose="Migraine2")
-    print(f"Created Report: {new_report.id}, {new_report.date}, {new_report.healthcomplaints}, {new_report.medicalhistory}, {new_report.diagnose}")
+    # Example usage of VerslagRepo methods
+    repo = VerslagRepo(db)
 
-    # # Read
-    # report = read_report(db, 4)
-    # print(f"Read Report: {report.id}, {report.date}, {report.healthcomplaints}, {report.medicalhistory}, {report.diagnose}")
+    # # Create a new verslag
+    # new_verslag = repo.add_verslag(date="2024-06-20", healthcomplaints="Headache", medicalhistory="None", diagnose="Migraine")
+    # print(f"Created Verslag: {new_verslag.id}, {new_verslag.date}, {new_verslag.healthcomplaints}, {new_verslag.medicalhistory}, {new_verslag.diagnose}")
 
-    # # Update
-    # updated_report = update_report(db, 1, date="2024-06-01", healthcomplaints="Severe headache", diagnose="ok")
-    # print(f"Updated Report: {updated_report.id}, {updated_report.date}, {updated_report.healthcomplaints}, {updated_report.medicalhistory}, {updated_report.diagnose}")
+    # Read a verslag by ID
+    report = repo.get_verslag(1)
+    if report:
+        print(f"Read Verslag: {report.id}, {report.date}, {report.healthcomplaints}, {report.medicalhistory}, {report.diagnose}")
+    else:
+        print("Verslag not found")
 
-    # # Delete
-    # delete_report(db, 2)
-    # deleted_report = read_report(db, 2)
-    # print(f"Deleted Report: {deleted_report}")  # Should be None if deleted
+    # # Update a verslag
+    # updated_verslag = repo.update_verslag(1, date="2024-06-21")
+    # if updated_verslag:
+    #     print(f"Updated Verslag: {updated_verslag.id}, {updated_verslag.date}, {updated_verslag.healthcomplaints}, {updated_verslag.medicalhistory}, {updated_verslag.diagnose}")
+    # else:
+    #     print("Verslag not found")
+
+    # # Delete a verslag
+    # deleted_verslag = repo.delete_verslag(2)
+    # if deleted_verslag:
+    #     print(f"Deleted Verslag: {deleted_verslag.id}, {deleted_verslag.date}, {deleted_verslag.healthcomplaints}, {deleted_verslag.medicalhistory}, {deleted_verslag.diagnose}")
+    # else:
+    #     print("Verslag not found")
 
     db.close()

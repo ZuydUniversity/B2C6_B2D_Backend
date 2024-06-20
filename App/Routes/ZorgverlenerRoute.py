@@ -8,6 +8,7 @@ router = APIRouter(
   prefix="/zorgverleners"
 )
 
+
 @router.get("")
 async def get_zorgverleners(db: Session = Depends(get_db)):
   ZorgVerleners = await ZorgverlenersRepo(db).get_zorgverleners()
