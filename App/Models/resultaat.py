@@ -1,9 +1,10 @@
 from pydantic import BaseModel, PastDate, UUID5
 
-class Resultaat(BaseModel):
-    #id: UUID5
-    id: int | None = None
+class ResultaatIn(BaseModel):
     # onderzoek: None  # dit vervangen met onderzoek class
     name: str
     date: str
     discription: str
+
+class ResultaatDb(ResultaatIn):
+    id: int
