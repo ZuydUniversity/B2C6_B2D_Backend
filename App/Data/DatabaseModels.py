@@ -13,7 +13,7 @@ class Zorgverlener(Base):
     profession = Column(String(50), nullable=False)
 
 class Verslag(Base):
-    __tablename__ = "verslagen"
+    __tablename__ = "verslagen1"
 #is null?
     id = Column(Integer, primary_key=True, index=True)
     date= Column(String(100), index=True)
