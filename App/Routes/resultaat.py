@@ -7,31 +7,21 @@ from sqlalchemy.orm import Session
 
 router = APIRouter(prefix ="/resultaten")
 
-test_save = []
+
+#get all
+@router.get("/")
+async def GetAll_Resultaat(db: Session = Depends(get_db)):
+    return await ResultaatRepo(db).GetAll_Resultaat()
+
 #get with id
 @router.get("/{id}")
 async def Get_Resultaat(id:int, db: Session = Depends(get_db)):
-    repo = ResultaatRepo
-    # check if exist
-    return await repo.Get_Resultaat(id)
-
-#get all
-async def GetAll_Resultaat(db: Session = Depends(get_db)):
-    Resultaten = await ResultaatRepo(db).GetAll_Resultaat()
-
-    return Resultaten
-# @router.get("/resultaat/{id}", response_model=ResultaatBase)
-# async def get_resultaat(user_id: UUID):
-#     return resultaat_get_by_id(user_id)
+    return await ResultaatRepo(db).Get_Resultaat(id)
 
 #post one
-@router.post("")
-async def add_Resultaat(resultaat: Resultaat, db:Session = Depends(get_db)):
-    repo = ResultaatRepo(db)
-    print(dir(repo))
-    new_Resultaat = await repo.add_Resultaat(resultaat)
-    print(dir(repo))
-    return {"resultaat_name": resultaat.name}
+@router.post("/")
+async def add_Resultaat(resultaat: Resultaat, db: Session = Depends(get_db)):
+    return await ResultaatRepo(db).add_Resultaat(resultaat)
 
 #delete by id
 # @router.delete("/resultaat/{id}", response_model=dict)

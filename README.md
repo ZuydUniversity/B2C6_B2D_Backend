@@ -14,6 +14,7 @@ pip install -r requirements.txt
 
 **dev mode:**
 ```bash
+docker run -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 mariadb
 fastapi dev main.py
 ```
 

@@ -17,7 +17,7 @@ class ResultaatRepo:
 
     #read single
     async def Get_Resultaat(self, id: int):
-        Resultaat = self.db.query(dbmodels.Resultaat).filer(dbmodels.Resultaat.id == id).first()
+        Resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
         return Resultaat
 
     #read all    
