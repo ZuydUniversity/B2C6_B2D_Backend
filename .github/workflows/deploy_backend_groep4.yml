@@ -83,14 +83,13 @@ jobs:
               cd Backend
               sudo pip install -r requirements.txt
 
-      - name: Start backend & frontend
+      - name: Start backend
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
-              ( cd Frontend ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
               ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
 
       - name: Notify Slack on Success
