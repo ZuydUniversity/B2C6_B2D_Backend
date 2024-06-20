@@ -33,7 +33,7 @@ class Patient(Base):
 
 class Verslag(Base):
     __tablename__ = "verslagen"
-
+#is null?
     id = Column(Integer, primary_key=True, index=True)
     date= Column(String(100), index=True)
     healthcomplaints = Column(String(500), index=True)

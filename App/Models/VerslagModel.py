@@ -1,3 +1,12 @@
+
+# from pydantic import BaseModel
+
+# class Verslag(BaseModel):
+#     id: int | None = None
+#     date: str
+#     healthcomplaints: str
+#     medicalhistory: str
+#     diagnose: str
 from sqlalchemy import Column, Integer, String
 from App.Data.Database import Base  # Zorg ervoor dat je Base van de juiste plaats importeert
 
