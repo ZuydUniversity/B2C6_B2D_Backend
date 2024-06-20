@@ -9,7 +9,7 @@ if __name__ == "__main__":
     db = SessionLocal()
 
     # Create
-    new_report = VerslagenRepo.add_verslag(db, date="2024-05-29", healthcomplaints="Headache, nausea", medicalhistory="niets", diagnose="Migraine2")
+    new_report = VerslagenRepo.add_verslag(db, date="2026-7-8", healthcomplaints="Headache, nausea", medicalhistory="niets1", diagnose="Migraine2")
     print(f"Created Report: {new_report.id}, {new_report.date}, {new_report.healthcomplaints}, {new_report.medicalhistory}, {new_report.diagnose}")
 
     # # Read

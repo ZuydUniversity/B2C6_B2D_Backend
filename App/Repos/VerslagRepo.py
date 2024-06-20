@@ -6,7 +6,9 @@ class VerslagenRepo:
     def __init__(self, db: Session):
         self.db = db
 
-
+    async def verslagExists(self, id:int):
+        return self.db.query(dbmodels.Verslag).filter(dbmodels.Verslag.id == id).count()
+    
     def add_verslag(db_session: Session, date, healthcomplaints, medicalhistory, diagnose): #run python -m backend.main
         verslag = Verslag(
             date=date,
