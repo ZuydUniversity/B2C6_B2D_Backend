@@ -8,7 +8,6 @@ class ResultaatRepo:
         self.db = db   
     #create
     async def add_Resultaat(self,resultaat: ResultaatIn) -> ResultaatDb:
-        resultaat.id = None
         new_resultaat = dbmodels.Resultaat(**resultaat.model_dump())
         self.db.add(new_resultaat)
         self.db.commit()
