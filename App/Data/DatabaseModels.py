@@ -8,6 +8,6 @@ class Zorgverlener(Base):
     name = Column(String(50), nullable=False)
     lastName = Column(String(50), nullable=False)
     email = Column(String(50), unique=False, nullable=False)
-    phoneNumber = Column(Integer, nullable=False)
+    phoneNumber = Column(String(15), nullable=False)
     password = Column(String(50), nullable=False)
     profession = Column(String(50), nullable=False)
