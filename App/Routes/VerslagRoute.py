@@ -23,7 +23,12 @@ def get_verslag_by_id(id: int, db: Session = Depends(get_db)):
 @router.post("", response_model=PydanticVerslag)
 def add_verslag(verslag: PydanticVerslag, db: Session = Depends(get_db)):
     repo = VerslagRepo(db)
-    new_verslag = repo.add_verslag(verslag)
+    new_verslag = repo.add_verslag(
+        date=verslag.date,
+        healthcomplaints=verslag.healthcomplaints,
+        medicalhistory=verslag.medicalhistory,
+        diagnose=verslag.diagnose
+    )
     return new_verslag
 
 @router.put("/{id}", response_model=PydanticVerslag)
@@ -32,7 +37,13 @@ def update_verslag(id: int, verslag: PydanticVerslag, db: Session = Depends(get_
     existing_verslag = repo.get_verslag(id)
     if not existing_verslag:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Verslag with id {id} not found")
-    updated_verslag = repo.update_verslag(id, **verslag.dict())
+    updated_verslag = repo.update_verslag(
+        verslag_id=id,
+        date=verslag.date,
+        healthcomplaints=verslag.healthcomplaints,
+        medicalhistory=verslag.medicalhistory,
+        diagnose=verslag.diagnose
+    )
     return updated_verslag
 
 @router.delete("/{id}", response_model=dict)
@@ -42,4 +53,3 @@ def delete_verslag(id: int, db: Session = Depends(get_db)):
     if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Verslag with id {id} not found")
     return {"message": f"Verslag with id {id} has been deleted successfully"}
-
