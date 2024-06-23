@@ -27,9 +27,6 @@ jobs:
           sudo apt install libmariadb3 libmariadb-dev -y
           pip install -r requirements.txt
 
-      - name: Unit-Tests
-        run: echo "Dit is geen echte test"
-
       - name: Build API artifacts
         run: | 
           mkdir Backend
