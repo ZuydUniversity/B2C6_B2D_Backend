@@ -1,0 +1,26 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: 
+    - master
+      
+
+  pull_request: 
+    branches: 
+    - master
+    
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Notify Slack on Success
+      if: success()
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build succeeded 🎉"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+    
+    - name: Notify Slack on Failure
+      if: failure()
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Frontend build failed ❌"}' ${{ secrets.SLACK_WEBHOOK_URL }}
