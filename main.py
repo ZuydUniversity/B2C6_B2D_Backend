@@ -9,13 +9,13 @@ if __name__ == "__main__":
     repo = VerslagRepo(db)
 
     # # Create a new verslag
-    # new_verslag = repo.add_verslag(date="2024-06-20", healthcomplaints="Headache", medicalhistory="None", diagnose="Migraine")
-    # print(f"Created Verslag: {new_verslag.id}, {new_verslag.date}, {new_verslag.healthcomplaints}, {new_verslag.medicalhistory}, {new_verslag.diagnose}")
+    # new_verslag = repo.add_verslag(date="2024-06-20", healthcomplaints="Headache", medicalhistory="None", diagnose="Migraine", zorgverlener_id=None, patient_id=None)
+    # print(f"Created Verslag: {new_verslag.id}, {new_verslag.date}, {new_verslag.healthcomplaints}, {new_verslag.medicalhistory}, {new_verslag.diagnose}, {new_verslag.zorgverlener_id}, {new_verslag.patient_id}")
 
     # Read a verslag by ID
     report = repo.get_verslag(1)
     if report:
-        print(f"Read Verslag: {report.id}, {report.date}, {report.healthcomplaints}, {report.medicalhistory}, {report.diagnose}")
+        print(f"Read Verslag: {report.id}, {report.date}, {report.healthcomplaints}, {report.medicalhistory}, {report.diagnose}, {report.zorgverlener_id}, {report.patient_id}")
     else:
         print("Verslag not found")
 

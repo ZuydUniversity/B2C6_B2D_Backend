@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from typing import List
 from App.Data.Database import get_db
 from App.Repos.VerslagRepo import VerslagRepo
 from ..Models.VerslagModel import Verslag as PydanticVerslag
@@ -7,7 +8,7 @@ from ..Models.VerslagModel import Verslag as PydanticVerslag
 router = APIRouter(prefix="/verslag")
 
 
-@router.get("", response_model=list[PydanticVerslag])
+@router.get("", response_model=List[PydanticVerslag])
 def get_verslagen(db: Session = Depends(get_db)):
     verslagen = VerslagRepo(db).get_verslagen()
     return verslagen
@@ -18,6 +19,7 @@ def get_verslag_by_id(id: int, db: Session = Depends(get_db)):
     verslag = repo.get_verslag(id)
     if not verslag:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Verslag with id {id} not found")
+    # Ensure all required fields are included in the response
     return verslag
 
 @router.post("", response_model=PydanticVerslag)
@@ -27,7 +29,9 @@ def add_verslag(verslag: PydanticVerslag, db: Session = Depends(get_db)):
         date=verslag.date,
         healthcomplaints=verslag.healthcomplaints,
         medicalhistory=verslag.medicalhistory,
-        diagnose=verslag.diagnose
+        diagnose=verslag.diagnose,
+        zorgverlener_id=verslag.zorgverlener_id,
+        patient_id=verslag.patient_id
     )
     return new_verslag
 
@@ -42,7 +46,9 @@ def update_verslag(id: int, verslag: PydanticVerslag, db: Session = Depends(get_
         date=verslag.date,
         healthcomplaints=verslag.healthcomplaints,
         medicalhistory=verslag.medicalhistory,
-        diagnose=verslag.diagnose
+        diagnose=verslag.diagnose,
+        zorgverlener_id=verslag.zorgverlener_id,
+        patient_id=verslag.patien_id
     )
     return updated_verslag
 

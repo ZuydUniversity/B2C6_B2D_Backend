@@ -1,5 +1,6 @@
 
 from pydantic import BaseModel
+from typing import Optional
 
 class Verslag(BaseModel):
     id: int | None = None
@@ -7,6 +8,8 @@ class Verslag(BaseModel):
     healthcomplaints: str
     medicalhistory: str
     diagnose: str
+    zorgverlener_id: Optional[int] 
+    patient_id: Optional[int]
 
 
 # from sqlalchemy import Column, Integer, String
