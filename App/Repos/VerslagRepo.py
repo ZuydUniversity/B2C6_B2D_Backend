@@ -9,12 +9,14 @@ class VerslagRepo:
     def verslagExists(self, id: int):
         return self.db.query(dbmodels.Verslag).filter(dbmodels.Verslag.id == id).count()
 
-    def add_verslag(self, date, healthcomplaints, medicalhistory, diagnose):
+    def add_verslag(self, date, healthcomplaints, medicalhistory, diagnose, zorgverlener_id, patient_id):
         verslag = dbmodels.Verslag(
             date=date,
             healthcomplaints=healthcomplaints,
             medicalhistory=medicalhistory,
-            diagnose=diagnose
+            diagnose=diagnose,
+            zorgverlener_id=zorgverlener_id,
+            patient_id=patient_id
         )
         self.db.add(verslag)
         self.db.commit()
@@ -27,7 +29,7 @@ class VerslagRepo:
     def get_verslagen(self):
         return self.db.query(dbmodels.Verslag).all()
 
-    def update_verslag(self, verslag_id, date=None, healthcomplaints=None, medicalhistory=None, diagnose=None):
+    def update_verslag(self, verslag_id, date=None, healthcomplaints=None, medicalhistory=None, diagnose=None,  zorgverlener_id=None, patient_id=None):
         verslag = self.db.query(dbmodels.Verslag).filter(dbmodels.Verslag.id == verslag_id).first()
         if verslag:
             if date:
@@ -38,6 +40,10 @@ class VerslagRepo:
                 verslag.medicalhistory = medicalhistory
             if diagnose:
                 verslag.diagnose = diagnose
+            if zorgverlener_id:
+                verslag.zorgverlener_id = zorgverlener_id
+            if patient_id:
+                verslag.patient_id = patient_id
             self.db.commit()
             self.db.refresh(verslag)
         return verslag
