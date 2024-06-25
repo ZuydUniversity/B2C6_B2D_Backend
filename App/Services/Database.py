@@ -1,28 +1,28 @@
-from typing import List
+# from typing import List
 
-import databases # type: ignore
-import sqlalchemy # type: ignore
-from fastapi import FastAPI
-from pydantic import BaseModel
+# import databases # type: ignore
+# import sqlalchemy # type: ignore
+# from fastapi import FastAPI
+# from pydantic import BaseModel
 
-# SQLAlchemy specific code, as with any other app
-DATABASE_URL = "mysql+pymysql://root:Groep6@localhost:3306/DevOps1"
-# DATABASE_URL = "postgresql://user:password@postgresserver/db"
+# # SQLAlchemy specific code, as with any other app
+# DATABASE_URL = "mysql+pymysql://root:Groep6@localhost:3306/DevOps1"
+# # DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-class DataAccessLayer (object):
-    def __init__(self):
-        self.connection = mariadb.connect(
-            host="localhost",
-            port="3306",
-            user="root",
-            password="Groep6",
-            database="mydatabase"
-        )
+# class DataAccessLayer (object):
+#     def __init__(self):
+#         self.connection = mariadb.connect(
+#             host="localhost",
+#             port="3306",
+#             user="root",
+#             password="Groep6",
+#             database="mydatabase"
+#         )
 
-        def get_persons(self):
-            cursor = self.connecttion.cursor()
-            cursor.execute("*SELECT Id, name, age FROM person*")
-            results = cursor.fetchall()
+#         def get_persons(self):
+#             cursor = self.connecttion.cursor()
+#             cursor.execute("*SELECT Id, name, age FROM person*")
+#             results = cursor.fetchall()
 
 # from typing import List
 
