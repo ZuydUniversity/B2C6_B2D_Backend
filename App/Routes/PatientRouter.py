@@ -53,6 +53,7 @@
 #   raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
 #                         detail=f"Patient with id:{id} not found or doesn't exist!")
 
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from App.Data.Database import get_db
