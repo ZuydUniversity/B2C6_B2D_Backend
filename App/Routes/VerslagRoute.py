@@ -48,7 +48,7 @@ def update_verslag(id: int, verslag: PydanticVerslag, db: Session = Depends(get_
         medicalhistory=verslag.medicalhistory,
         diagnose=verslag.diagnose,
         zorgverlener_id=verslag.zorgverlener_id,
-        patient_id=verslag.patien_id
+        patient_id=verslag.patient_id
     )
     return updated_verslag
 
