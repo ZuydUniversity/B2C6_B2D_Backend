@@ -4,9 +4,10 @@ from App.Data.Database import Base
 from sqlalchemy import Column, Integer, String
 from uuid import UUID
 
+from sqlalchemy import Column, Integer, String, Boolean
 
 class Zorgverlener(Base):
-    __tablename__ = "Zorgverleners"
+    __tablename__ = "zorgverleners"
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
     name = Column(String(50), nullable=False)
@@ -15,6 +16,7 @@ class Zorgverlener(Base):
     phoneNumber = Column(String(15), nullable=False)
     password = Column(String(50), nullable=False)
     profession = Column(String(50), nullable=False)
+    isActive = Column(Boolean(True), nullable=False)
 
 class Patient(Base):
     __tablename__ = "patient"
@@ -31,6 +33,7 @@ class Patient(Base):
     medication = Column(String(100), nullable=True)
     phonenumber = Column(Integer, nullable=True)
 
+
 class Verslag(Base):
     __tablename__ = "verslagen"
 #is null?
@@ -41,3 +44,5 @@ class Verslag(Base):
     diagnose = Column(String(100), index=True)
     zorgverlener_id = Column(Integer, index=True, nullable=True)
     patient_id = Column(Integer, index=True, nullable=True)
+    
+    

@@ -8,4 +8,5 @@ class Zorgverlener(BaseModel):
     phoneNumber: str
     password: str
     profession: str
+    isActive: bool
     
