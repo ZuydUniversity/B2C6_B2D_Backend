@@ -72,7 +72,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
           script: |
-            sudo rm -rf Frontend
+            sudo rm -rf Backend
             
       - name: Deploy to ubuntu server
         uses: garygrossgarten/github-action-scp@release
