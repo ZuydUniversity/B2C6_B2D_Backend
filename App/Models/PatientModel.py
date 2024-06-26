@@ -4,9 +4,11 @@ class Patient(BaseModel):
     id: int
     name: str
     surname: str
-    email: str
     age: int
+    gender: str
     address: str
-    housenumber: str
     city: str
-    telephonenumber: int
+    email: str
+    diagnosis: str
+    medication: str
+    phonenumber: int
