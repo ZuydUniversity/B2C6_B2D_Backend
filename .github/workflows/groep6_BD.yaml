@@ -30,7 +30,8 @@ jobs:
 
       - name: Install all dependencies
         run: | 
-          sudo apt install libmariadb3 libmariadb-dev -y
+          
+          pip install -r requirements.txt
           
       
       - name: UnitTests
