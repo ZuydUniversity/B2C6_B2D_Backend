@@ -46,7 +46,7 @@ async def update_patient(id:int, patient: Patient, db: Session = Depends(get_db)
 async def delete_patient(id: int, db: Session = Depends(get_db)):
   repo = PatientRepo(db)
   isDeleted = await repo.delete_patient(id)
-
+ 
   if isDeleted:
      return f"Patient with id:{id} has been removed succesfuly!"
   
