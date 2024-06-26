@@ -60,9 +60,12 @@ jobs:
         - name: Reboot Server
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: ${{env.HOST}}
-            username: ${{env.SERVER_USER}}
-            password: ${{env.SERVER_PASSWORD}}
+            host: 52.232.64.59
+            username: groep6
+            password: Welkom123456!
+            # host: ${{env.HOST}}
+            # username: ${{env.SERVER_USER}}
+            # password: ${{env.SERVER_PASSWORD}}
             script: |
               sudo reboot
               exit
@@ -73,9 +76,12 @@ jobs:
         - name: Clean Old Artefact
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: ${{env.HOST}}
-            username: ${{env.SERVER_USER}}
-            password: ${{env.SERVER_PASSWORD}}
+            host: 52.232.64.59
+            username: groep6
+            password: Welkom123456!
+            # host: ${{env.HOST}}
+            # username: ${{env.SERVER_USER}}
+            # password: ${{env.SERVER_PASSWORD}}
             script: |
               sudo rm -rf API
         
@@ -84,16 +90,22 @@ jobs:
           with:
             local: API
             remote: API
-            host: ${{env.HOST}}
-            username: ${{env.SERVER_USER}}
-            password: ${{env.SERVER_PASSWORD}}
+            host: 52.232.64.59
+            username: groep6
+            password: Welkom123456!
+            # host: ${{env.HOST}}
+            # username: ${{env.SERVER_USER}}
+            # password: ${{env.SERVER_PASSWORD}}
 
-        - name: Install dependenties
+        - name: Install dependencies
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: ${{env.HOST}}
-            username: ${{env.SERVER_USER}}
-            password: ${{env.SERVER_PASSWORD}}
+            host: 52.232.64.59
+            username: groep6
+            password: Welkom123456!
+            # host: ${{env.HOST}}
+            # username: ${{env.SERVER_USER}}
+            # password: ${{env.SERVER_PASSWORD}}
             script: |
               sudo apt install python3-pip -y
               python3 -m pip install --upgrade pip
@@ -106,10 +118,11 @@ jobs:
         - name: Start API
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: ${{env.HOST}}
-            # username: ${{env.SERVER_USER}}
+            host: 52.232.64.59
             username: groep6
             password: Welkom123456!
+            # host: ${{env.HOST}}
+            # username: ${{env.SERVER_USER}}
             # password: ${{env.SERVER_PASSWORD}}
             script: |
               ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
