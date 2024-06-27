@@ -60,3 +60,5 @@ class TestAddVerslag:
         mock_db.add.assert_called_once_with(verslag)
         mock_db.commit.assert_called_once()
         mock_db.refresh.assert_called_once_with(verslag)
+
+        # pytest Tests/verslagtests/add_verslagtest.py
