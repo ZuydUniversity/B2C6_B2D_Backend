@@ -41,8 +41,9 @@ jobs:
           database: jdb_db_test
       - run: mysql -D jdb_db_test -e 'SELECT VERSION()'
 
-      - name: Create user and grant privileges
+      - name: Create database, user and grant privileges
         run: |
+          mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db;"
           mysql -u root -e "CREATE USER 'API'@'localhost' IDENTIFIED BY 'Welkom123!';"
           mysql -u root -e "GRANT ALL PRIVILEGES ON jdb_db.* TO 'API'@'localhost';"
       
