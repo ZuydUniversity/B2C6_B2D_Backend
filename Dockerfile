@@ -5,6 +5,7 @@ FROM python:3.12
 WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
+COPY ./.env.local /code/.env.local
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./App /code/App
 
