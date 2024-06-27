@@ -3,7 +3,7 @@ name: Groep-3 Unit Test oefenen
 on:
     push:
       branches:
-        - "Groep-3-Casus"
+        - "Groep-3-Casus-branch"
 
 jobs:
   test:
