@@ -31,11 +31,17 @@ jobs:
 
       - name: Install all dependencies
         run: | 
+          sudo apt-get update
           sudo apt install libmariadb3 libmariadb-dev -y
           pip install -r requirements.txt
       
+      - uses: getong/mariadb-action@v1.11
+        with:
+          mysql database: 'jdb_db_test'
+          mysql root password: Welkom123!
+      
       - name: UnitTests
-        run: echo "Dit is een nep test"
+        run: pytest --disable-warnings -v -x -s
       
       - name: Build API artifacts
         run: | 
