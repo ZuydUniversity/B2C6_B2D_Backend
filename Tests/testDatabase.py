@@ -9,7 +9,7 @@ import pytest
 
 from main import app
 
-SQLALCHEMY_DATABASE_URL = "mysql+mysqldb://root:Welkom123!@localhost:3306/jdb_db_test"
+SQLALCHEMY_DATABASE_URL = "mariadb+mariadbconnector://root:Welkom123!@localhost:3306/jdb_db_test"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
