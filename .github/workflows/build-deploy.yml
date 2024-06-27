@@ -41,7 +41,9 @@ jobs:
           mysql root password: Welkom123!
       
       - name: UnitTests
-        run: pytest --disable-warnings -v -x -s
+        run: |
+          sleep 10
+          pytest --disable-warnings -v -x -s
       
       - name: Build API artifacts
         run: | 
