@@ -34,15 +34,15 @@ jobs:
           sudo apt-get update
           sudo apt install libmariadb3 libmariadb-dev -y
           pip install -r requirements.txt
-      
-      - uses: getong/mariadb-action@v1.11
+
+      - name: install MariaDB
+        uses: ankane/setup-mariadb@v1
         with:
-          mysql database: 'jdb_db_test'
-          mysql root password: Welkom123!
+          database: jdb_db_test
+      - run: mysql -D jdb_db_test -e 'SELECT VERSION()'
       
       - name: UnitTests
         run: |
-          docker ps
           sleep 10
           pytest --disable-warnings -v -x -s
       
