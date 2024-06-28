@@ -34,14 +34,9 @@ jobs:
           sudo apt install libmariadb3 libmariadb-dev -y
           pip install -r requirements.txt
 
-      - name: install MariaDB
-        uses: ankane/setup-mariadb@v1
-        with:
-          database: jdb_db_test
-      - run: mysql -D jdb_db_test -e 'SELECT VERSION()'
-
       - name: Create database, user and grant privileges
         run: |
+          sudo apt-get install mariadb-server -y
           mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db_test;"
           mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db;"
           mysql -u root -e "CREATE USER 'API'@'localhost' IDENTIFIED BY 'Welkom123!';"
