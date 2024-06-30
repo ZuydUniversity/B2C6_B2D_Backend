@@ -20,7 +20,7 @@ async def get_zorgverlenerById(id: int, db: Session = Depends(get_db)):
   exists = await repo.zorgverlenerExists(id)
   if exists < 1:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
+                        detail=f"Zorgverlener with id:{id} not found or doesn't exist!")
   
   return await repo.get_zorgverlener(id)
 
@@ -37,7 +37,7 @@ async def update_zorgverlener(id:int, zorgverlener: Zorgverlener, db: Session = 
   
   if exists < 1:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
+                        detail=f"Zorgverlener with id:{id} not found or doesn't exist!")
   
   await repo.update_zorgverlener(id, zorgverlener)
   return await repo.get_zorgverlener(id)
@@ -51,4 +51,4 @@ async def delete_zorgverlener(id: int, db: Session = Depends(get_db)):
      return f"Zorgverlener with id:{id} has been removed succesfuly!"
   
   raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"Zorgverlener with id:{id} not fond or doesn't exist!")
+                        detail=f"Zorgverlener with id:{id} not found or doesn't exist!")
