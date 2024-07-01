@@ -46,9 +46,10 @@ async def update_patient(id:int, patient: Patient, db: Session = Depends(get_db)
 async def delete_patient(id: int, db: Session = Depends(get_db)):
   repo = PatientRepo(db)
   isDeleted = await repo.delete_patient(id)
-
+ 
   if isDeleted:
      return f"Patient with id:{id} has been removed succesfuly!"
   
   raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                         detail=f"Patient with id:{id} not found or doesn't exist!")
+

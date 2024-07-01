@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "mariadb+mariadbconnector://UserTest:Welkom123456!@localhost:3306/groep6db"
+SQLALCHEMY_DATABASE_URL = "mariadb+mariadbconnector://UserTest:Welkom123456!@localhost:3306/groep6database"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
