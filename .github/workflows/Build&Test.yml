@@ -40,7 +40,7 @@ jobs:
           SLACK_MESSAGE: |
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Success
-          SLACK_TITLE: 'Unit Test Success'
+          SLACK_TITLE: 'Unit Test Success test'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
 
       - name: Slack Notification on Failure
@@ -52,5 +52,5 @@ jobs:
           SLACK_MESSAGE: |
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Failure
-          SLACK_TITLE: 'Unit Test Failure'
+          SLACK_TITLE: 'Unit Test Failure test'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
