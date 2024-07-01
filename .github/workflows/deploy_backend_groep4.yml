@@ -34,7 +34,7 @@ jobs:
       - name: Build API Artifacts
         run: | 
           mkdir Backend
-          cp -r App main.py requirements.txt ansible Backend/
+          cp -r App main.py requirements.txt Backend/
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -65,7 +65,7 @@ jobs:
       - name: Reboot server
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: ansible/reboot_services.yml
+          playbook: b2c6_b2d_Backend/ansible/reboot_services.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
@@ -93,7 +93,7 @@ jobs:
       - name: Run Ansible Playbook - Install Dependencies
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: ansible/install_dependencies.yml
+          playbook: b2c6_b2d_Backend/ansible/install_dependencies.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
@@ -103,7 +103,7 @@ jobs:
       - name: Run Ansible Playbook - Start Services
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: ansible/start_services.yml
+          playbook: b2c6_b2d_Backend/ansible/start_services.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
