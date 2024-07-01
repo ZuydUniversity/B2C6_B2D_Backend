@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Set Up Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -52,29 +52,36 @@ jobs:
          name: Backend
          path: Backend
 
-      - name: Reboot server
+      - name: Install Ansible on VM
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-          script: |
-            sudo reboot
-            exit
+           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+           script: |
+             sudo apt update
+             sudo apt install -y ansible
 
-      - name: Wait for server to reboot
-        run: sleep 20
+      - name: Reboot server
+        uses: dawidd6/action-ansible-playbook@v2.1.2
+        with:
+          playbook: ansible/reboot_services.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+          ANSIBLE_INVENTORY: 'ansible/inventory'
+          ANSIBLE_REMOTE_USER: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}
+          ANSIBLE_REMOTE_PASS: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
 
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-          username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-          password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-          script: |
-            sudo rm -rf Backend
-            
-      - name: Deploy to ubuntu server
+            host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
+            username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
+            password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+            script: |
+              sudo rm -rf Backend
+
+      - name: Deploy to Server
         uses: garygrossgarten/github-action-scp@release
         with:
            local: Backend
@@ -83,30 +90,25 @@ jobs:
            username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
            password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
            
-      - name: Install dependencies on VM
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Run Ansible Playbook - Install Dependencies
+        uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-           script: |
-              sudo apt install python3-pip -y
-              python -m pip install --upgrade pip
-              pip install mariadb
-              sudo apt get update -y
-              sudo apt install libmariadb3 libmariadb-dev -y
-              cd Backend
-              sudo pip install -r requirements.txt
-
-      - name: Start backend & frontend
-        uses: appleboy/ssh-action@v1.0.3
+          playbook: ansible/install_dependencies.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+          ANSIBLE_INVENTORY: 'ansible/inventory'
+          ANSIBLE_REMOTE_USER: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}
+          ANSIBLE_REMOTE_PASS: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
+          
+      - name: Run Ansible Playbook - Start Services
+        uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-           host: ${{ secrets.AZURE_VM_HOST_GROEP4 }} 
-           username: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}  
-           password: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
-           script: |
-              ( cd Backend ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >backend.log 2>&1 </dev/null & )
-              ( cd Frontend ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
+          playbook: ansible/start_services.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+          ANSIBLE_INVENTORY: 'ansible/inventory'
+          ANSIBLE_REMOTE_USER: ${{ secrets.AZURE_VM_USERNAME_GROEP4 }}
+          ANSIBLE_REMOTE_PASS: ${{ secrets.AZURE_VM_PASSWORD_GROEP4 }}
 
       - name: Notify Slack on Success
         if: success()
