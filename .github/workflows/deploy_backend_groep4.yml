@@ -34,7 +34,7 @@ jobs:
       - name: Build API Artifacts
         run: | 
           mkdir Backend
-          cp -r App main.py requirements.txt Backend/
+          cp -r App main.py requirements.txt ansible Backend/
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
