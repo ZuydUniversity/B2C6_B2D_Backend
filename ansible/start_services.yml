@@ -1,0 +1,9 @@
+- name: Start backend and frontend services
+  hosts: all
+  become: yes
+  tasks:
+    - name: Start Backend
+      shell: cd Backend && nohup uvicorn main:app --host 0.0.0.0 --port 8000 > backend.log 2>&1 &
+
+    - name: Start Frontend
+      shell: cd Frontend && nohup npm run start -- -p 80 > frontend.log 2>&1 &
