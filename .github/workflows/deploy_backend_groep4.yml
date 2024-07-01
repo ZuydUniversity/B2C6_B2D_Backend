@@ -65,7 +65,7 @@ jobs:
       - name: Reboot server
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: b2c6_b2d_Backend/ansible/reboot_services.yml
+          playbook: B2C6_B2D_Backend/ansible/reboot_services.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
@@ -93,7 +93,7 @@ jobs:
       - name: Run Ansible Playbook - Install Dependencies
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: b2c6_b2d_Backend/ansible/install_dependencies.yml
+          playbook: B2C6_B2D_Backend/ansible/install_dependencies.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
@@ -103,7 +103,7 @@ jobs:
       - name: Run Ansible Playbook - Start Services
         uses: dawidd6/action-ansible-playbook@v2.1.2
         with:
-          playbook: b2c6_b2d_Backend/ansible/start_services.yml
+          playbook: B2C6_B2D_Backend/ansible/start_services.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
           ANSIBLE_INVENTORY: 'ansible/inventory'
