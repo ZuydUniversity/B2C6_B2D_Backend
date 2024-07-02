@@ -13,7 +13,7 @@ class ResultaatRepo:
         self.db.commit()
         self.db.refresh(new_resultaat)
         
-        RETV = ResultaatOut(new_resultaat.name, new_resultaat.date, new_resultaat.discription, ())
+        RETV = ResultaatOut(name=new_resultaat.name, date=new_resultaat.date, discription=new_resultaat.discription, spiersterkten=())
         
         return RETV
 
@@ -25,7 +25,7 @@ class ResultaatRepo:
         
         print(SPIERSTERKTEN)
         
-        RETV = ResultaatOut(Resultaat.name, Resultaat.date, Resultaat.discription, SPIERSTERKTEN)
+        RETV = ResultaatOut(name=Resultaat.name, date=Resultaat.date, discription=Resultaat.discription, spiersterkten=SPIERSTERKTEN)
 
         return RETV
 
