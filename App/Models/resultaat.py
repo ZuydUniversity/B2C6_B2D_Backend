@@ -11,4 +11,4 @@ class ResultaatDb(ResultaatIn):
     id: int
     
 class ResultaatOut(ResultaatIn):
-    spiersterkten: tuple[SpiersterkteOut]
+    spiersterkten: list[SpiersterkteOut]
