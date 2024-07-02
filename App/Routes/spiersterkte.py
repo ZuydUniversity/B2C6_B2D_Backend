@@ -5,7 +5,7 @@ from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
 from App.Data.Database import get_db
 from sqlalchemy.orm import Session
 
-router = APIRouter(prefix ="/resultaten")
+router = APIRouter(prefix ="/spiersterkten")
 
 
 #get all
