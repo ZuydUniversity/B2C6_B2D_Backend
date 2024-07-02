@@ -2,9 +2,8 @@ from pydantic import BaseModel
 from .resultaat import ResultaatDb
 
 class SpiersterkteBase(BaseModel):
-    name: str
-    date: str
-    discription: str
+    spiernaam: str
+    spiermyometrie: str
     
 class SpiersterkteIn(SpiersterkteBase):
     resultaat_id: int

@@ -1,6 +1,6 @@
 from sqlite3 import Date
 from .Database import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 
 class Zorgverlener(Base):
     __tablename__ = "Zorgverleners"
@@ -20,4 +20,11 @@ class Resultaat(Base):
     name = Column(String(50), nullable=False)
     date = Column(String(50), nullable=False)
     discription = Column(String(100), unique=False, nullable=False)
-    #onderzoek fk
+    
+class Spiersterkte(Base):
+    __tablename__ = "Spiersterkten"
+    
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
+    resultaat_id = Column(ForeignKey("resultaat.id"), nullable=False)
+    spiernaam = Column(String(50), nullable=False)
+    spiermyometrie = Column(String(100), unique=False, nullable=False)
