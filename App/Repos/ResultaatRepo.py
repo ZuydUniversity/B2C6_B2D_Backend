@@ -8,7 +8,14 @@ LOGGER = logging.getLogger("uvicorn")
 
 class ResultaatRepo:
     def __init__(self, db: Session):
-        self.db = db   
+        self.db = db
+        
+    async def db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
+        SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == resultaat.id)
+        RETV = ResultaatOut(name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKTEN)
+
+        return RETV
+        
     #create
     async def add_Resultaat(self,resultaat: ResultaatIn) -> ResultaatOut:
         new_resultaat = dbmodels.Resultaat(**resultaat.model_dump())
@@ -16,28 +23,19 @@ class ResultaatRepo:
         self.db.commit()
         self.db.refresh(new_resultaat)
         
-        RETV = ResultaatOut(name=new_resultaat.name, date=new_resultaat.date, discription=new_resultaat.discription, spiersterkten=())
-        
-        return RETV
+        return self.db_to_out(new_resultaat)
 
     #read single
     async def Get_Resultaat(self, id: int) -> ResultaatOut:
         Resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
         
-        SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == Resultaat.id)
-        
-        LOGGER.info(SPIERSTERKTEN)
-        
-        RETV = ResultaatOut(name=Resultaat.name, date=Resultaat.date, discription=Resultaat.discription, spiersterkten=SPIERSTERKTEN)
-
-        return RETV
+        return self.db_to_out(Resultaat)
 
     #read all    
     async def GetAll_Resultaat(self) -> list[ResultaatOut]:
-        Resultaat = self.db.query(dbmodels.Resultaat).all()
+        Resultaten = self.db.query(dbmodels.Resultaat).all()
         
-        
-        return Resultaat
+        return list(*map(self.db_to_out, Resultaten))
 
     #update
     async def update_Resultaat(self, id: int, resultaat_data: ResultaatIn) -> Optional[ResultaatOut]:
@@ -48,7 +46,7 @@ class ResultaatRepo:
 
             self.db.commit()
             self.db.refresh(resultaat)
-            return resultaat
+            return self.db_to_out(resultaat)
 
         return None 
 
