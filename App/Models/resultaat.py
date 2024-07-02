@@ -1,4 +1,4 @@
-from pydantic import BaseModel, PastDate, UUID5
+from pydantic import BaseModel
 
 class ResultaatIn(BaseModel):
     # onderzoek: None  # dit vervangen met onderzoek class
