@@ -10,7 +10,7 @@ class ResultaatRepo:
     def __init__(self, db: Session):
         self.db = db
         
-    async def db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
+    def db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
         SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == resultaat.id)
         RETV = ResultaatOut(name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKTEN)
 
