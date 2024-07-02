@@ -1,7 +1,7 @@
 from App.Repos.SpiersterkteRepo import SpiersterkteRepo
 from fastapi import APIRouter, Depends, HTTPException, status
 #from uuid import UUID
-from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
+from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteDb, SpiersterkteOut
 from App.Data.Database import get_db
 from sqlalchemy.orm import Session
 
@@ -9,21 +9,21 @@ router = APIRouter(prefix ="/spiersterkten")
 
 
 #get all
-@router.get("/", response_model=list[SpiersterkteDb])
+@router.get("/", response_model=list[SpiersterkteOut])
 async def GetAll_Spiersterkte(db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).GetAll_Spiersterkte()
 
 #get with id
-@router.get("/{id}", response_model=SpiersterkteDb)
+@router.get("/{id}", response_model=SpiersterkteOut)
 async def Get_Spiersterkte(id:int, db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).Get_Spiersterkte(id)
 
 #post one
-@router.post("/", response_model=SpiersterkteDb)
+@router.post("/", response_model=SpiersterkteOut)
 async def add_Spiersterkte(spiersterkte: SpiersterkteIn, db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).add_Spiersterkte(spiersterkte)
 
-@router.put("/{id}", response_model=SpiersterkteDb)
+@router.put("/{id}", response_model=SpiersterkteOut)
 async def update_Spiersterkte(id: int, spiersterkte: SpiersterkteIn, db: Session = Depends(get_db)):
     updated_spiersterkte = await SpiersterkteRepo(db).update_Spiersterkte(id, spiersterkte)
     if not updated_spiersterkte:
