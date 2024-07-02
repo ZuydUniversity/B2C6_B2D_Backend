@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from .resultaat import ResultaatDb
 
 class SpiersterkteBase(BaseModel):
     spiernaam: str
