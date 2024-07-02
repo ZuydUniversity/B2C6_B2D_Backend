@@ -35,7 +35,7 @@ class ResultaatRepo:
     async def GetAll_Resultaat(self) -> list[ResultaatOut]:
         Resultaten = self.db.query(dbmodels.Resultaat).all()
         
-        return list(map(self.db_to_out, Resultaten))
+        return list(map(self.db_to_out, list(Resultaten)))
 
     #update
     async def update_Resultaat(self, id: int, resultaat_data: ResultaatIn) -> Optional[ResultaatOut]:
