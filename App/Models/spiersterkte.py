@@ -14,4 +14,3 @@ class SpiersterkteDb(SpiersterkteBase):
     
 class SpiersterkteOut(SpiersterkteBase):
     id: int
-    resultaat: ResultaatDb
