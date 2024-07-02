@@ -1,6 +1,7 @@
 from typing import Optional
 from sqlalchemy.orm import Session
 from ..Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
+from ..Models.spiersterkte import SpiersterkteDb, SpiersterkteOut
 from App.Data import DatabaseModels as dbmodels
 import logging
 
@@ -10,9 +11,16 @@ class ResultaatRepo:
     def __init__(self, db: Session):
         self.db = db
         
-    def db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
-        SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == resultaat.id)
-        RETV = ResultaatOut(id=resultaat.id, name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKTEN)
+    def spiersterkte_db_to_out(self, spiersterke: SpiersterkteDb) -> SpiersterkteOut:
+        RETV = SpiersterkteOut(spiernaam=spiersterke.spiernaam, spiermyometrie=spiersterke.spiermyometrie, id=spiersterke.id)
+
+        return RETV
+        
+    def resultaat_db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
+        SPIERSTERKTEN_DB = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == resultaat.id)
+        SPIERSTERKEN_OUT = list(map(self.spiersterkte_db_to_out, SPIERSTERKTEN_DB))
+
+        RETV = ResultaatOut(id=resultaat.id, name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKEN_OUT)
 
         return RETV
         
@@ -23,21 +31,21 @@ class ResultaatRepo:
         self.db.commit()
         self.db.refresh(new_resultaat)
         
-        return self.db_to_out(new_resultaat)
+        return self.resultaat_db_to_out(new_resultaat)
 
     #read single
     async def Get_Resultaat(self, id: int) -> ResultaatOut:
         Resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
         
-        return self.db_to_out(Resultaat)
+        return self.resultaat_db_to_out(Resultaat)
 
     #read all    
     async def GetAll_Resultaat(self) -> list[ResultaatOut]:
         Resultaten = self.db.query(dbmodels.Resultaat).all()
         
-        LOGGER.info(list(map(self.db_to_out, Resultaten)))
+        LOGGER.info(list(map(self.resultaat_db_to_out, Resultaten)))
         
-        return list(map(self.db_to_out, Resultaten))
+        return list(map(self.resultaat_db_to_out, Resultaten))
 
     #update
     async def update_Resultaat(self, id: int, resultaat_data: ResultaatIn) -> Optional[ResultaatOut]:
@@ -48,7 +56,7 @@ class ResultaatRepo:
 
             self.db.commit()
             self.db.refresh(resultaat)
-            return self.db_to_out(resultaat)
+            return self.resultaat_db_to_out(resultaat)
 
         return None 
 
