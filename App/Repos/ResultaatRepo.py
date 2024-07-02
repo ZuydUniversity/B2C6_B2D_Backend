@@ -1,31 +1,43 @@
 from typing import Optional
 from sqlalchemy.orm import Session
-from ..Models.resultaat import ResultaatIn, ResultaatDb
+from ..Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
 from App.Data import DatabaseModels as dbmodels
 
 class ResultaatRepo:
     def __init__(self, db: Session):
         self.db = db   
     #create
-    async def add_Resultaat(self,resultaat: ResultaatIn) -> ResultaatDb:
+    async def add_Resultaat(self,resultaat: ResultaatIn) -> ResultaatOut:
         new_resultaat = dbmodels.Resultaat(**resultaat.model_dump())
         self.db.add(new_resultaat)
         self.db.commit()
         self.db.refresh(new_resultaat)
-        return new_resultaat
+        
+        RETV = ResultaatOut(new_resultaat.name, new_resultaat.date, new_resultaat.discription, ())
+        
+        return RETV
 
     #read single
-    async def Get_Resultaat(self, id: int) -> ResultaatDb:
+    async def Get_Resultaat(self, id: int) -> ResultaatOut:
         Resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
-        return Resultaat
+        
+        SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == Resultaat.id)
+        
+        print(SPIERSTERKTEN)
+        
+        RETV = ResultaatOut(Resultaat.name, Resultaat.date, Resultaat.discription, SPIERSTERKTEN)
+
+        return RETV
 
     #read all    
-    async def GetAll_Resultaat(self) -> list[ResultaatDb]:
+    async def GetAll_Resultaat(self) -> list[ResultaatOut]:
         Resultaat = self.db.query(dbmodels.Resultaat).all()
+        
+        
         return Resultaat
 
     #update
-    async def update_Resultaat(self, id: int, resultaat_data: ResultaatIn) -> Optional[ResultaatDb]:
+    async def update_Resultaat(self, id: int, resultaat_data: ResultaatIn) -> Optional[ResultaatOut]:
         resultaat = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
         if resultaat:
             for key, value in resultaat_data.dict(exclude_unset=True).items():
