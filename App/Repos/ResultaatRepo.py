@@ -12,7 +12,7 @@ class ResultaatRepo:
         
     def db_to_out(self, resultaat: ResultaatDb) -> ResultaatOut:
         SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == resultaat.id)
-        RETV = ResultaatOut(name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKTEN)
+        RETV = ResultaatOut(id=resultaat.id, name=resultaat.name, date=resultaat.date, discription=resultaat.discription, spiersterkten=SPIERSTERKTEN)
 
         return RETV
         
