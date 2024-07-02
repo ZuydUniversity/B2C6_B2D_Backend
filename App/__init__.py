@@ -1,4 +1,4 @@
-from .Routes import resultaat
+from .Routes import resultaat, spiersterkte
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .Data import DatabaseModels
@@ -13,6 +13,7 @@ def initializeApp():
     app = FastAPI()
 
     app.include_router(resultaat.router)
+    app.include_router(spiersterkte.router)
     
     app.add_middleware(
     CORSMiddleware,
