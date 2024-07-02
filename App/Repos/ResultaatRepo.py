@@ -2,6 +2,9 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from ..Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
 from App.Data import DatabaseModels as dbmodels
+import logging
+
+LOGGER = logging.getLogger("uvicorn")
 
 class ResultaatRepo:
     def __init__(self, db: Session):
@@ -23,7 +26,7 @@ class ResultaatRepo:
         
         SPIERSTERKTEN = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.resultaat_id == Resultaat.id)
         
-        print(SPIERSTERKTEN)
+        LOGGER.info(SPIERSTERKTEN)
         
         RETV = ResultaatOut(name=Resultaat.name, date=Resultaat.date, discription=Resultaat.discription, spiersterkten=SPIERSTERKTEN)
 
