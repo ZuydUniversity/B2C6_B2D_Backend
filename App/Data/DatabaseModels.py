@@ -25,6 +25,6 @@ class Spiersterkte(Base):
     __tablename__ = "Spiersterkten"
     
     id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
-    resultaat_id = Column(ForeignKey("resultaat.id"), nullable=False)
+    resultaat_id = Column(ForeignKey("Resultaten.id"), nullable=False)
     spiernaam = Column(String(50), nullable=False)
     spiermyometrie = Column(String(100), unique=False, nullable=False)
