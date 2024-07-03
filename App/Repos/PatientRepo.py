@@ -7,19 +7,23 @@ class PatientRepo:
         self.db = db
 
     async def patientExists(self, id:int):
+        Patient.decrypt()
         return self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).count()
 
     async def get_patients(self):
         Patients = self.db.query(dbmodels.Patient).all()
+        Patient.decrypt()
         return Patients
 
     async def get_patient(self, id: int):
         Patient = self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).first()
+        Patient.decrypt()
         return Patient
 
     async def add_patient(self, patient: Patient):
         patient.id = None
         new_patient = dbmodels.Patient(**patient.model_dump())
+        new_patient.encrypt()
         self.db.add(new_patient)
         self.db.commit()
         self.db.refresh(new_patient)
@@ -29,6 +33,7 @@ class PatientRepo:
         patient.id = id
         isUpdated = self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).update(patient.model_dump(), synchronize_session=False)
         self.db.commit()
+        isUpdated.decrypt()
         return isUpdated
 
     async def delete_patient(self, id: int):
