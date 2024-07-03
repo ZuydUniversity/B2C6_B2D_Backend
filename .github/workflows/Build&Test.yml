@@ -38,6 +38,7 @@ jobs:
           SLACK_COLOR: good
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
+            BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Success
           SLACK_TITLE: 'Unit Test Success'
@@ -50,6 +51,7 @@ jobs:
           SLACK_COLOR: danger
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
+            BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Failure
           SLACK_TITLE: 'Unit Test Failure'
