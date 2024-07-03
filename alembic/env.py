@@ -7,16 +7,12 @@ from alembic import context
 
 from App.Data.DatabaseModels import Base
 
-
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 config.set_main_option(
     "sqlalchemy.url",
-    "mariadb+mariadbconnector://UserTest:Welkom123456!@localhost:3306/groep6database")
-
-# sqlalchemy.url = mariadb+mariadbconnector://UserTest:Welkom123456!@localhost:3306/groep6database
+    "mariadb+mariadbconnector://API:Welkom123!@localhost:3306/jdb_db")
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

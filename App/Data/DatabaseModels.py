@@ -1,13 +1,7 @@
 from .Database import Base
-from sqlalchemy import Column, Integer, String
 from App.Data.Database import Base
-from sqlalchemy import Column, Integer, String
-from uuid import UUID
-
 from sqlalchemy import Column, Integer, String, Boolean
-from App.Data.Database import Base
-from sqlalchemy import Column, Integer, String
-from uuid import UUID
+
 
 class Zorgverlener(Base):
     __tablename__ = "zorgverleners"
@@ -47,5 +41,3 @@ class Verslag(Base):
     diagnose = Column(String(100), index=True)
     zorgverlener_id = Column(Integer, index=True, nullable=True)
     patient_id = Column(Integer, index=True, nullable=True)
-    
-    
