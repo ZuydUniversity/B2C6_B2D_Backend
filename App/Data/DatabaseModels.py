@@ -14,3 +14,15 @@ class Zorgverlener(Base):
     isActive = Column(Boolean(True), nullable=False)
     
     
+
+
+class Verslag(Base):
+    __tablename__ = "verslagen"
+#is null?
+    id = Column(Integer, primary_key=True, index=True)
+    date= Column(String(100), index=True)
+    healthcomplaints = Column(String(500), index=True)
+    medicalhistory = Column(String(500), index=True)
+    diagnose = Column(String(100), index=True)
+    zorgverlener_id = Column(Integer, index=True, nullable=True)
+    patient_id = Column(Integer, index=True, nullable=True)
