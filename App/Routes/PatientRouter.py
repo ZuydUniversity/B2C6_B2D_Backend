@@ -71,7 +71,7 @@ async def get_patients(db: Session = Depends(get_db)):
 @router.get("/{id}", response_model=Patient)
 async def get_patient_by_id(id: int, db: Session = Depends(get_db)):
     repo = PatientRepo(db)
-    exists = await repo.patient_exists(id)
+    exists = await repo.patientExists(id)
     if exists < 1:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Patient with id:{id} not found or doesn't exist!")
@@ -86,7 +86,7 @@ async def add_patient(patient: Patient, db: Session = Depends(get_db)):
 @router.put("/{id}", response_model=Patient)
 async def update_patient(id: int, patient: Patient, db: Session = Depends(get_db)):
     repo = PatientRepo(db)
-    exists = await repo.patient_exists(id)
+    exists = await repo.patientExists(id)
     if exists < 1:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Patient with id:{id} not found or doesn't exist!")

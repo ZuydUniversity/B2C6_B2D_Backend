@@ -64,6 +64,7 @@ class PatientRepo:
         return new_patient
 
     async def update_patient(self, id: int, patient: Patient):
+        patient.id = id
         patient_data = patient.dict(exclude_unset=True)
         self.db.query(dbmodels.Patient).filter(dbmodels.Patient.id == id).update(patient_data)
         self.db.commit()
