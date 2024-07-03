@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String
 from uuid import UUID
 
 class Patient(Base):
-    __tablename__ = "Patient"
+    __tablename__ = "patient"
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
     name = Column(String(50), nullable=False)
