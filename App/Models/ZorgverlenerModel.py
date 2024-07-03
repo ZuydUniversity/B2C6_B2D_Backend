@@ -5,7 +5,8 @@ class Zorgverlener(BaseModel):
     name: str
     lastName: str
     email: str
-    phoneNumber: int
+    phoneNumber: str
     password: str
     profession: str
+    isActive: bool
     
