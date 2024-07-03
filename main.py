@@ -4,9 +4,11 @@
 from dotenv import load_dotenv
 import os
 
-load_dotenv(".env.local")
+# if env vars are not loaded by default, fetch them from .env
+if os.getenv('DB_URL') is None:
+    load_dotenv(".env.local")
 
-print(f"[*] using db: {os.getenv('DB_URL')}")
+    print(f"[*] using db: {os.getenv('DB_URL')}")
 
 # start webserver
 from App import initializeApp
