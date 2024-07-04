@@ -15,7 +15,6 @@ env:
 jobs:
   upload_on_ssh:
     runs-on: ubuntu-latest
-    needs: [codeql, linter]
     steps:
       - uses: actions/checkout@v2
 
