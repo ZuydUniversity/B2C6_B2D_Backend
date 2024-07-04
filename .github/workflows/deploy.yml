@@ -5,10 +5,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  codeql:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/codeql_analyzer.yml@Groep-2
-  linter:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/linter.yml@Groep-2
+  check_code:
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/check_code.yml@Groep-2
   run_on_ssh:
-    needs: [codeql, linter]
+    needs: [check_code]
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/run_on_ssh.yml@Groep-2
