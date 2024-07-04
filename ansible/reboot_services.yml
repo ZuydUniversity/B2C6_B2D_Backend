@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   tasks:
-    - name: Reboot the server
+    - name: Reboot The server
       shell: sudo reboot
       async: 1
       poll: 0
