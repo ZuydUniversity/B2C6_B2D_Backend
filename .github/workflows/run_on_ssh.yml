@@ -13,11 +13,6 @@ env:
   SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
 
 jobs:
-  codeql:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/codeql_analyzer.yml@Groep-2
-  linter:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/linter.yml@Groep-2
-
   upload_on_ssh:
     runs-on: ubuntu-latest
     needs: [codeql, linter]
