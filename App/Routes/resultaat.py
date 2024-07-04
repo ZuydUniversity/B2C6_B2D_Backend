@@ -1,7 +1,7 @@
 from App.Repos.ResultaatRepo import ResultaatRepo
 from fastapi import APIRouter, Depends, HTTPException, status
 #from uuid import UUID
-from App.Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
+from App.Models.resultaat import ResultaatIn, ResultaatOut
 from App.Data.Database import get_db
 from sqlalchemy.orm import Session
 
