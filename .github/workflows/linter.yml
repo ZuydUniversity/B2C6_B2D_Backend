@@ -1,11 +1,7 @@
 name: linter
 
 on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
-  push:
-  pull_request:
-  workflow_dispatch:
+  workflow_run:
 
 jobs:
   main:
