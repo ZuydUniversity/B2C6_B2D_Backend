@@ -2,17 +2,7 @@ name: run_on_ssh
 
 on:
   push:
-  pull_request:
   workflow_dispatch:
-  
-env:
-  LOCAL_DIST: "/tmp/dist"
-  REMOTE_HOST: "108.142.148.168"
-  REMOTE_USER: "groep2" 
-  REMOTE_PASSWORD: "groep-2Hexagon"
-  REMOTE_DIST: "/tmp/app"  # "~/<remote_dir>
-  SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
-  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
 
 jobs:
   codeql:
