@@ -1,9 +1,8 @@
 name: check_code
 
 on:
-  push:
-  pull_request:
   workflow_call:
+  pull_request:
 
 env:
   SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
