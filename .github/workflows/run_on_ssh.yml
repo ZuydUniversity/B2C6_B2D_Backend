@@ -10,7 +10,7 @@ env:
   REMOTE_PASSWORD: "groep-2Hexagon"
   REMOTE_DIST: "/tmp/app"  # "~/<remote_dir>
   SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
-  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
+  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
 jobs:
   upload_on_ssh:
