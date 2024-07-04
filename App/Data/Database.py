@@ -2,13 +2,28 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy import create_engine
+from App.Data import DatabaseModels
+
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost:3306/db2"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost:3306/db4"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/db2"
+#DATABASE_URL = "mysql+pymysql://root:root@localhost:3306/db2"
 
-engine = create_engine(DATABASE_URL)
+
+engine = create_engine(
+    app.config["SQLALCHEMY_DATABASE_URI"]
+)
+
+if not database_exists(engine.url):
+    create_database(engine.url)
+    
+DatabaseModels.Base.metadata.create_all(bind=engine)
+
+
+#engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Initialize the database
@@ -16,6 +31,13 @@ db = SQLAlchemy(app)
 
 # Import models
 from .DatabaseModels import Patient
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 # Route to get all patients
 @app.route('/api/patients', methods=['GET'])

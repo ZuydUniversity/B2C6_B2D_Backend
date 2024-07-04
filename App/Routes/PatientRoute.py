@@ -29,7 +29,7 @@ async def get_patientById(id: int, db: Session = Depends(get_db)):
 async def add_patient(patient: Patient, db: Session = Depends(get_db)):
   repo = PatientRepo(db)
   newPatient = await repo.add_patient(patient)
-  return f"New Patient with id:{newPatient.id} created!"
+  return f"New Patient with id:{newPatient.id} created! test id: {patient}"
 
 @router.put("/{id}")
 async def update_patient(id:int, patient: Patient, db: Session = Depends(get_db)):

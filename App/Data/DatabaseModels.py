@@ -8,7 +8,7 @@ class Patient(Base):
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement="auto")
     name = Column(String(50), nullable=False)
-    address = Column(String(50), nullable=False)
-    postalZip = Column(String(50), nullable=False)
-    phone = Column(Integer, nullable=False)
-    email = Column(String(50), unique=False, nullable=False)
+    address = Column(String(50) )
+    postalZip = Column(String(50) )
+    phone = Column(String(50) )
+    email = Column(String(50), unique=False )

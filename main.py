@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .Routes import PatientRoute
+from App.Routes import PatientRoute
 
 app = FastAPI()
 

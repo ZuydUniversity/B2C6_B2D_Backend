@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from ..Models.PatientModel import Patient
+from App.Data import DatabaseModels
 
 class PatientRepo:
   def __init__(self, db: Session):
@@ -15,9 +16,12 @@ class PatientRepo:
     return self.db.query(Patient).filter(Patient.id == id).count()
 
   async def add_patient(self, patient: Patient):
-    self.db.add(patient)
+    db_patient = DatabaseModels.Patient(**patient.model_dump())
+    if db_patient.id == 0:
+            db_patient.id = None
+    self.db.add(db_patient)
     self.db.commit()
-    self.db.refresh(patient)
+    self.db.refresh(db_patient)
     return patient
 
   async def update_patient(self, id: int, patient: Patient):
