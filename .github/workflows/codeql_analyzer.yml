@@ -12,7 +12,7 @@
 name: "codeql"
 
 on:
-  workflow_run:
+  workflow_call:
 
 jobs:
   analyze:
