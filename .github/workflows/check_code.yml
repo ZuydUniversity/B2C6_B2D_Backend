@@ -4,34 +4,8 @@ on:
   workflow_call:
   pull_request:
 
-env:
-  SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
-  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK"
-
 jobs:
   codeql:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/codeql_analyzer.yml@Groep-2
   linter:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/linter.yml@Groep-2
-
-  notify:
-    runs-on: ubuntu-20.04
-    needs: [ codeql, linter ]
-    if: ${{ always() }}
-    steps:
-      - uses: slackapi/slack-github-action@v1.26.0
-        with:
-          # This data can be any valid JSON from a previous step in the GitHub Action
-          payload: |
-            {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GH workflow `check_code`: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|[codeql: ${{ needs.codeql.result }}, linter: ${{ needs.linter.result }}]>"
-                  }
-                }
-              ]
-            }
