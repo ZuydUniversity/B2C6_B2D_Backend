@@ -1,9 +1,7 @@
 name: run_on_ssh
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+  workflow_call:
   
 env:
   LOCAL_DIST: "/tmp/dist"
