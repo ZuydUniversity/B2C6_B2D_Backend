@@ -12,9 +12,7 @@
 name: "codeql"
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+  workflow_run:
 
 jobs:
   analyze:
