@@ -1,4 +1,4 @@
-name: run_on_ssh
+name: deploy
 
 on:
   push:
