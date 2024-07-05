@@ -3,30 +3,26 @@ name: SSH to Azure VM
 on:
   push:
     branches:
-      -Groep-5
-workflow_dispatch:
+      - Groep-5
+  workflow_dispatch:
 
 jobs:
   ssh-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      -name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      
-      -name: Set up SSH
+      - name: Set up SSH
         run: |
-        sudo
-        ssh groep5casus@52.166.126.230
-        groep5casuss!
-        sudo apt update
-        sudo apt install python3
-        pip install git
-        git clone https://github.com/ZuydUniversity/B2C6_B2D_Backend.git
-        pip instal -r requirements.txt
-        sudo apt install libmariadb3 libmariadb-dev -y
-        uvicorn main:app --host 0.0.0.0 --port 8000
-
-        #stop ssh session (complete workflow step)
-        exit
+          sudo ssh groep5casus@52.166.126.230 groep5casuss!
+          sudo apt update
+          sudo apt install python3
+          pip install git
+          git clone https://github.com/ZuydUniversity/B2C6_B2D_Backend.git
+          pip install -r requirements.txt
+          sudo apt install libmariadb3 libmariadb-dev -y
+          uvicorn main:app --host 0.0.0.0 --port 8000
+          # Stop SSH session (complete workflow step)
+          exit
