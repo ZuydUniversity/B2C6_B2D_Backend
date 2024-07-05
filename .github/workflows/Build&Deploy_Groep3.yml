@@ -158,6 +158,18 @@ jobs:
           username: ${{env.SERVER_USER}}
           password: ${{env.SERVER_PASSWORD}}
 
+      - name: Set up database
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
+          script: |
+            sudo apt-get install mariadb-server -y
+            sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db;"
+            sudo mysql -u root -e "CREATE USER IF NOT EXISTS 'API'@'localhost' IDENTIFIED BY 'Welkom123!';"
+            sudo mysql -u root -e "GRANT ALL PRIVILEGES ON jdb_db.* TO 'API'@'localhost';"
+
       - name: Install dependencies
         uses: appleboy/ssh-action@v1.0.3
         with:
