@@ -70,7 +70,7 @@ jobs:
             Unit Test Result: Failure
           SLACK_TITLE: 'Unit Test Failure'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
-
+  
   Builden_Backend:
     runs-on: ubuntu-latest
     needs: [Unit_Tests]
@@ -130,9 +130,9 @@ jobs:
       - name: Reboot Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.HOST }}
-          username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
           script: |
             sudo reboot
             exit
@@ -143,44 +143,44 @@ jobs:
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.HOST }}
-          username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
           script: |
-            sudo rm -rf /home/${{ env.SERVER_USER }}/API
+            sudo rm -rf API
         
       - name: Deploy to ubuntu server
-        uses: appleboy/scp-action@master
+        uses: garygrossgarten/github-action-scp@release
         with:
-          host: ${{ env.HOST }}
-          username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
-          source: "API/*"
-          target: "/home/${{ env.SERVER_USER }}/API"
+          local: API
+          remote: API
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
 
       - name: Install dependencies
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.HOST }}
-          username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
           script: |
             sudo apt install -y python3-pip
             python3 -m pip install --upgrade pip
             sudo apt-get install -y libmariadb3 libmariadb-dev
-            cd /home/${{ env.SERVER_USER }}/API
+            cd API
             sudo pip install -r requirements.txt
 
       - name: Start API
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.HOST }}
-          username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
           script: |
-            ( cd /home/${{ env.SERVER_USER }}/API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
-            ( cd /home/${{ env.SERVER_USER }}/FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
-
+            ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
+            ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
+             
       - name: Slack Notification on Success
         if: success()
         uses: rtCamp/action-slack-notify@v2
