@@ -52,7 +52,7 @@ jobs:
           SLACK_COLOR: good
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
-            BACKEND
+            UNIT TEST BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Success
           SLACK_TITLE: 'Unit Test Success'
@@ -65,13 +65,13 @@ jobs:
           SLACK_COLOR: danger
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
-            BACKEND
+            UNIT TEST BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Failure
           SLACK_TITLE: 'Unit Test Failure'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
   
-  build:
+  Builden_Backend:
     runs-on: ubuntu-latest
     needs: [Unit_Tests]
     steps:
@@ -117,9 +117,9 @@ jobs:
           name: API
           path: API
        
-  deploy:
+  Deployen_Backend:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [Builden_Backend]
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -188,10 +188,9 @@ jobs:
           SLACK_COLOR: good
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
-            BACKEND
+            DEPLOYEN BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Success
-          SLACK_TITLE: 'Unit Test Success'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
       
       - name: Slack Notification on Failure
@@ -201,8 +200,7 @@ jobs:
           SLACK_COLOR: danger
           SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
           SLACK_MESSAGE: |
-            BACKEND
+            DEPLOYEN BACKEND
             Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
             Unit Test Result: Failure
-          SLACK_TITLE: 'Unit Test Failure'
           SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
