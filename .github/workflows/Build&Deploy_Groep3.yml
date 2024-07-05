@@ -6,7 +6,7 @@ on:
       - "Groep-3-Casus-branch"
 
 env:
-  HOST: 13.93.11.167
+  HOST: 52.166.197.4
   SERVER_USER: groep3admin
   SERVER_PASSWORD: groep3admin@
 
