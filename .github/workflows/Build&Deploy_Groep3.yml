@@ -6,7 +6,7 @@ on:
       - "Groep-3-Casus-branch"
 
 env:
-  HOST: 52.166.197.4
+  HOST: 52.174.126.118
   SERVER_USER: groep3admin
   SERVER_PASSWORD: groep3admin@
 
@@ -138,7 +138,7 @@ jobs:
             exit
 
       - name: Wait for server to reboot
-        run: sleep 60
+        run: sleep 20
 
       - name: Retry SSH connection
         uses: appleboy/ssh-action@v1.0.3
