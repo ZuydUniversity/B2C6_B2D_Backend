@@ -5,7 +5,7 @@ import sqlalchemy # type: ignore
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-# SQLAlchemy specific code, as with any other app
+
 DATABASE_URL = "mysql+pymysql://root:Groep6@localhost:3306/DevOps1"
 # DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
