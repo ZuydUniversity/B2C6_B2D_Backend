@@ -27,7 +27,12 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmariadb3 libmariadb-dev
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install fastapi uvicorn sqlalchemy pymysql mariadb
@@ -81,15 +86,17 @@ jobs:
       - name: Update pip
         run: python -m pip install --upgrade pip
 
-      - name: Install all dependencies
+      - name: Install system dependencies
         run: | 
           sudo apt-get update
-          sudo apt install libmariadb3 libmariadb-dev -y
-          pip install -r requirements.txt
+          sudo apt install -y libmariadb3 libmariadb-dev
+
+      - name: Install all dependencies
+        run: pip install -r requirements.txt
 
       - name: Create database, user and grant privileges
         run: |
-          sudo apt-get install mariadb-server -y
+          sudo apt-get install -y mariadb-server
           sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db_test;"
           sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS jdb_db;"
           sudo mysql -u root -e "CREATE USER 'API'@'localhost' IDENTIFIED BY 'Welkom123!';"
@@ -97,8 +104,7 @@ jobs:
           sudo mysql -u root -e "GRANT ALL PRIVILEGES ON jdb_db.* TO 'API'@'localhost';"
       
       - name: UnitTests
-        run: |
-          pytest --disable-warnings -v -x -s
+        run: pytest --disable-warnings -v -x -s
       
       - name: Build API artifacts
         run: | 
@@ -152,18 +158,16 @@ jobs:
           username: ${{env.SERVER_USER}}
           password: ${{env.SERVER_PASSWORD}}
 
-      - name: Install dependenties
+      - name: Install dependencies
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{env.HOST}}
           username: ${{env.SERVER_USER}}
           password: ${{env.SERVER_PASSWORD}}
           script: |
-            sudo apt install python3-pip -y
+            sudo apt install -y python3-pip
             python3 -m pip install --upgrade pip
-            pip install mariadb
-            sudo apt-get update -y
-            sudo apt install libmariadb3 libmariadb-dev -y
+            sudo apt-get install -y libmariadb3 libmariadb-dev
             cd API
             sudo pip install -r requirements.txt
 
