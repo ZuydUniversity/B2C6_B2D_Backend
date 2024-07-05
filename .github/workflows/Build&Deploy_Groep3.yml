@@ -6,16 +6,16 @@ on:
       - "Groep-3-Casus-branch"
 
 env:
-  HOST: 52.166.135.125
-  SERVER_USER: groep1
-  SERVER_PASSWORD: Welkomwelkom123!
+  HOST: 13.93.11.167
+  SERVER_USER: groep3admin
+  SERVER_PASSWORD: groep3admin@
 
 concurrency:
-  group: groep_1_B2D
+  group: groep_3_B2D
   cancel-in-progress: false
 
 jobs:
-  test:
+  Unit_Tests:
     runs-on: ubuntu-latest
 
     steps:
