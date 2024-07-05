@@ -4,6 +4,7 @@ on:
   push:
     branches:
       -Groep-5
+workflow_dispatch:
 
 jobs:
   ssh-deploy:
