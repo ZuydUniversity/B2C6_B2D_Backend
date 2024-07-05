@@ -140,6 +140,15 @@ jobs:
       - name: Wait for server to reboot
         run: sleep 20
 
+      - name: Fix broken package state
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{env.HOST}}
+          username: ${{env.SERVER_USER}}
+          password: ${{env.SERVER_PASSWORD}}
+          script: |
+            sudo dpkg --configure -a
+
       - name: Clean Old Artefact
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -177,42 +186,4 @@ jobs:
           username: ${{env.SERVER_USER}}
           password: ${{env.SERVER_PASSWORD}}
           script: |
-            sudo apt install -y python3-pip
-            python3 -m pip install --upgrade pip
-            sudo apt-get install -y libmariadb3 libmariadb-dev
-            cd API
-            sudo pip install -r requirements.txt
-
-      - name: Start API
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{env.HOST}}
-          username: ${{env.SERVER_USER}}
-          password: ${{env.SERVER_PASSWORD}}
-          script: |
-            ( cd API ; nohup sudo uvicorn main:app --host 0.0.0.0 --port 8000 >api.log 2>&1 </dev/null & )
-            ( cd FrontEnd ; nohup sudo npm run start -- -p 80 >frontend.log 2>&1 </dev/null & )
-             
-      - name: Slack Notification on Success
-        if: success()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: good
-          SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
-          SLACK_MESSAGE: |
-            DEPLOYEN BACKEND
-            Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
-            Unit Test Result: Success
-          SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
-      
-      - name: Slack Notification on Failure
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_COLOR: danger
-          SLACK_ICON: https://cdn.discordapp.com/attachments/1015233182209159201/1247122042848022538/7503aw.png
-          SLACK_MESSAGE: |
-            DEPLOYEN BACKEND
-            Test Automation Report: https://github.com/ZuydUniversity/B2C6_B2D_Backend/actions/runs/${{github.run_id}}
-            Unit Test Result: Failure
-          SLACK_WEBHOOK: ${{ secrets.GROEP_DRIE }}
+            sudo apt install -y pytho
