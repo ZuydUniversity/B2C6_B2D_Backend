@@ -78,12 +78,12 @@ jobs:
         - name: Clean Old Artefact
           uses: appleboy/ssh-action@v1.0.3
           with:
-            host: 52.232.64.59
-            username: groep6
-            password: Welkom123456!
-            # host: ${{env.HOST}}
-            # username: ${{env.SERVER_USER}}
-            # password: ${{env.SERVER_PASSWORD}}
+            # host: 52.232.64.59
+            # username: groep6
+            # password: Welkom123456!
+            host: ${{env.HOST}}
+            username: ${{env.SERVER_USER}}
+            password: ${{env.SERVER_PASSWORD}}
             script: |
               sudo rm -rf API
         
