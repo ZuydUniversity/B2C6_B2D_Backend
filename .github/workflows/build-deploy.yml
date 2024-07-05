@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - "main"
+      - "groep_1_B2D"
 
 env:
   HOST: 52.166.135.125
