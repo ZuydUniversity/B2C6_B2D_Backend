@@ -16,7 +16,7 @@ class ResultaatIn(ResultaatBase):
 class ResultaatDb(ResultaatBase):
     id: int
 
-    
+
 class ResultaatOut(ResultaatBase):
     id: int
     spiersterkten: list[SpiersterkteOut]
