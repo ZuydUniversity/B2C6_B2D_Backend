@@ -5,7 +5,7 @@ on:
 
 jobs:
   testing:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing/main.yml@Groep-2
 
   build:
     needs: testing
