@@ -2,6 +2,9 @@ name: main
 
 on:
   push:
+    branches:
+      - main
+      - Groep-2
 
 jobs:
   testing:
