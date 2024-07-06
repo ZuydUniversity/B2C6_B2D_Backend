@@ -7,7 +7,7 @@ jobs:
   testing:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
     secrets:
-      SLACK_WEBHOOK_URL: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+      GROEP_2_SLACK_WEBHOOK: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
 
   build:
     needs: testing
