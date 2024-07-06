@@ -1,5 +1,4 @@
-from sqlite3 import Date
-from .Database import Base
+from App.Data.Database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 
 

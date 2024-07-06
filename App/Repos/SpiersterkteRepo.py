@@ -1,13 +1,12 @@
-from typing import Optional
-from sqlalchemy.orm import Session
-from ..Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
 from App.Data import DatabaseModels as dbmodels
+from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
+from sqlalchemy.orm import Session
+from typing import Optional
 
 
 class SpiersterkteRepo:
     def __init__(self, db: Session):
-        self.db = db   
-
+        self.db = db
 
     # create
     async def add_Spiersterkte(self, spiersterkte: SpiersterkteIn) -> SpiersterkteDb:
@@ -19,17 +18,27 @@ class SpiersterkteRepo:
 
     # read single
     async def Get_Spiersterkte(self, id: int) -> SpiersterkteDb:
-        Spiersterkte = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
+        Spiersterkte = (
+            self.db.query(dbmodels.Spiersterkte)
+            .filter(dbmodels.Spiersterkte.id == id)
+            .first()
+        )
         return Spiersterkte
 
-    # read all    
+    # read all
     async def GetAll_Spiersterkte(self) -> list[SpiersterkteDb]:
         Spiersterkte = self.db.query(dbmodels.Spiersterkte).all()
         return Spiersterkte
 
     # update
-    async def update_Spiersterkte(self, id: int, spiersterkte_data: SpiersterkteIn) -> Optional[SpiersterkteDb]:
-        spiersterkte = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
+    async def update_Spiersterkte(
+        self, id: int, spiersterkte_data: SpiersterkteIn
+    ) -> Optional[SpiersterkteDb]:
+        spiersterkte = (
+            self.db.query(dbmodels.Spiersterkte)
+            .filter(dbmodels.Spiersterkte.id == id)
+            .first()
+        )
         if spiersterkte:
             for key, value in spiersterkte_data.dict(exclude_unset=True).items():
                 setattr(spiersterkte, key, value)
@@ -38,13 +47,16 @@ class SpiersterkteRepo:
             self.db.refresh(spiersterkte)
             return spiersterkte
 
-        return None 
+        return None
 
     # delete
     async def delete_Spiersterkte(self, id: int):
-        OBJ = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
+        OBJ = (
+            self.db.query(dbmodels.Spiersterkte)
+            .filter(dbmodels.Spiersterkte.id == id)
+            .first()
+        )
         self.db.delete(OBJ)
         self.db.commit()
-        
-        return None 
 
+        return None

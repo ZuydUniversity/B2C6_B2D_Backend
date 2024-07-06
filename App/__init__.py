@@ -1,8 +1,8 @@
-from .Routes import resultaat, spiersterkte
+from App.Data import DatabaseModels
+from App.Data.Database import engine
+from App.Routes import resultaat, spiersterkte
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .Data import DatabaseModels
-from .Data.Database import engine
 
 
 def initializeApp():
@@ -22,5 +22,5 @@ def initializeApp():
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    
+
     return app

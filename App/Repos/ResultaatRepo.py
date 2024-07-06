@@ -85,7 +85,11 @@ class ResultaatRepo:
 
     # delete
     async def delete_Resultaat(self, id: int):
-        OBJ = self.db.query(dbmodels.Resultaat).filter(dbmodels.Resultaat.id == id).first()
+        OBJ = (
+            self.db.query(dbmodels.Resultaat)
+            .filter(dbmodels.Resultaat.id == id)
+            .first()
+        )
         self.db.delete(OBJ)
         self.db.commit()
         return None
