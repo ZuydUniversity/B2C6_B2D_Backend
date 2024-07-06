@@ -11,10 +11,7 @@ jobs:
   build:
     #needs: testing
     uses: ./.github/workflows/build_push_docker.yml
-    secrets:
-      GROEP_2_DOCKERHUB_USERNAME: ${{ secrets.GROEP_2_DOCKERHUB_USERNAME }}
-      GROEP_2_DOCKERHUB_TOKEN: ${{ secrets.GROEP_2_DOCKERHUB_TOKEN }}
-      GROEP_2_DOCKERHUB_BACKEND_REPO_NAME: ${{ secrets.GROEP_2_DOCKERHUB_BACKEND_REPO_NAME }}
+    secrets: inherit
 
   deploy:
     needs: build
