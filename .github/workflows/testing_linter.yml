@@ -1,4 +1,4 @@
-name: linter
+name: testing_linter
 
 on:
   workflow_call:
