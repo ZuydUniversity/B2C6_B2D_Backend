@@ -6,6 +6,6 @@ on:
 
 jobs:
   codeql:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing/codeql.yml@Groep-2
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_codeql.yml@Groep-2
   linter:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing/linter.yml@Groep-2
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_linter.yml@Groep-2
