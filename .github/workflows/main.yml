@@ -5,7 +5,7 @@ on:
 
 jobs:
   testing:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
+    uses: ./.github/workflows/testing.yml
     secrets: inherit
 
   build:
