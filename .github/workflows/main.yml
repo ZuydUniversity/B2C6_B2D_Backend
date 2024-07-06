@@ -5,11 +5,11 @@ on:
 
 jobs:
   testing:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@groep-2
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
 
   build:
     needs: testing
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/build.yml@groep-2
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/build.yml@Groep-2
     secrets:
       GROEP_2_DOCKERHUB_USERNAME: ${{ secrets.GROEP_2_DOCKERHUB_USERNAME }}
       GROEP_2_DOCKERHUB_TOKEN: ${{ secrets.GROEP_2_DOCKERHUB_TOKEN }}
