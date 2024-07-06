@@ -19,6 +19,6 @@ jobs:
     uses:
       ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
     secrets:
-      SLACK_WEBHOOK_URL: ${{secrets.GROEP_2_SLACK_WEBHOOK}}
+      GROEP_2_SLACK_WEBHOOK: ${{secrets.GROEP_2_SLACK_WEBHOOK}}
     with:
       SLACK_WEBHOOK_TEXT: "GH workflow `testing.yml` failed: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|commit url>"
