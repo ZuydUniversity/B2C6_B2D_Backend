@@ -13,8 +13,7 @@ jobs:
   linter:
     uses: ./.github/workflows/testing_linter.yml
   notify:
-    #needs: [codeql, linter]
-    needs: codeql
+    needs: [codeql, linter]
     if: ${{ failure() }}
     uses:
       ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
