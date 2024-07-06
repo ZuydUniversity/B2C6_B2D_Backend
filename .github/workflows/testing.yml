@@ -10,8 +10,8 @@ on:
 jobs:
   codeql:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_codeql.yml@Groep-2
-  #linter:
-  #  uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_linter.yml@Groep-2
+  linter:
+    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_linter.yml@Groep-2
   notify:
     #needs: [codeql, linter]
     needs: codeql
