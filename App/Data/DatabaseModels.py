@@ -2,6 +2,7 @@ from sqlite3 import Date
 from .Database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 
+
 class Zorgverlener(Base):
     __tablename__ = "Zorgverleners"
 
@@ -12,6 +13,7 @@ class Zorgverlener(Base):
     phoneNumber = Column(Integer, nullable=False)
     password = Column(String(50), nullable=False)
     profession = Column(String(50), nullable=False)
+
     
 class Resultaat(Base):
     __tablename__ = "Resultaten"
@@ -20,6 +22,7 @@ class Resultaat(Base):
     name = Column(String(50), nullable=False)
     date = Column(String(50), nullable=False)
     discription = Column(String(100), unique=False, nullable=False)
+
     
 class Spiersterkte(Base):
     __tablename__ = "Spiersterkten"

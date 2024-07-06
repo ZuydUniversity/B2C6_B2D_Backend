@@ -3,28 +3,31 @@ from sqlalchemy.orm import Session
 from ..Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
 from App.Data import DatabaseModels as dbmodels
 
+
 class SpiersterkteRepo:
     def __init__(self, db: Session):
         self.db = db   
-    #create
-    async def add_Spiersterkte(self,spiersterkte: SpiersterkteIn) -> SpiersterkteDb:
+
+
+    # create
+    async def add_Spiersterkte(self, spiersterkte: SpiersterkteIn) -> SpiersterkteDb:
         new_spiersterkte = dbmodels.Spiersterkte(**spiersterkte.model_dump())
         self.db.add(new_spiersterkte)
         self.db.commit()
         self.db.refresh(new_spiersterkte)
         return new_spiersterkte
 
-    #read single
+    # read single
     async def Get_Spiersterkte(self, id: int) -> SpiersterkteDb:
         Spiersterkte = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
         return Spiersterkte
 
-    #read all    
+    # read all    
     async def GetAll_Spiersterkte(self) -> list[SpiersterkteDb]:
         Spiersterkte = self.db.query(dbmodels.Spiersterkte).all()
         return Spiersterkte
 
-    #update
+    # update
     async def update_Spiersterkte(self, id: int, spiersterkte_data: SpiersterkteIn) -> Optional[SpiersterkteDb]:
         spiersterkte = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
         if spiersterkte:
@@ -37,7 +40,7 @@ class SpiersterkteRepo:
 
         return None 
 
-    #delete
+    # delete
     async def delete_Spiersterkte(self, id: int):
         OBJ = self.db.query(dbmodels.Spiersterkte).filter(dbmodels.Spiersterkte.id == id).first()
         self.db.delete(OBJ)
