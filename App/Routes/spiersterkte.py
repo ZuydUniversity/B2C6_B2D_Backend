@@ -8,17 +8,14 @@ from sqlalchemy.orm import Session
 router = APIRouter(prefix ="/spiersterkten")
 
 
-#get all
 @router.get("/", response_model=list[SpiersterkteOut])
 async def GetAll_Spiersterkte(db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).GetAll_Spiersterkte()
 
-#get with id
 @router.get("/{id}", response_model=SpiersterkteOut)
 async def Get_Spiersterkte(id:int, db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).Get_Spiersterkte(id)
 
-#post one
 @router.post("/", response_model=SpiersterkteOut)
 async def add_Spiersterkte(spiersterkte: SpiersterkteIn, db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).add_Spiersterkte(spiersterkte)
