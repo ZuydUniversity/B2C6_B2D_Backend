@@ -10,7 +10,7 @@ jobs:
 
   build:
     #needs: testing
-    uses: ./.github/workflows/build_push_docker.yml
+    uses: ZuydUniversity/B2C6_B2D_IAS/.github/workflows/build_push_docker.yml@groep-2
     secrets: inherit
 
   deploy:
