@@ -11,10 +11,7 @@ jobs:
   build:
     needs: testing
     uses: ZuydUniversity/B2C6_B2D_IAS/.github/workflows/build_push_docker.yml@groep-2
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.GROEP_2_DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.GROEP_2_DOCKERHUB_TOKEN }}
-      DOCKERHUB_REPO_NAME: ${{ secrets.GROEP_2_DOCKERHUB_BACKEND_REPO_NAME }}
+    secrets: inherit
 
   deploy:
     needs: build
