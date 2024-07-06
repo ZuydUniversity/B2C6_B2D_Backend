@@ -1,5 +1,5 @@
+from App.Models.spiersterkte import SpiersterkteOut
 from pydantic import BaseModel
-from .spiersterkte import SpiersterkteOut
 
 
 class ResultaatBase(BaseModel):

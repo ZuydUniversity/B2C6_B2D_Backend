@@ -1,8 +1,9 @@
 # niet bedoelt om met docker te runnen
 
 # load env vars before running webserver
-from dotenv import load_dotenv
 import os
+
+from dotenv import load_dotenv
 
 # if env vars are not loaded by default, fetch them from .env
 if os.getenv("DB_URL") is None:

@@ -1,11 +1,8 @@
-from typing import Optional
-from sqlalchemy.orm import Session
-from ..Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
-from ..Models.spiersterkte import SpiersterkteDb, SpiersterkteOut
 from App.Data import DatabaseModels as dbmodels
-import logging
-
-LOGGER = logging.getLogger("uvicorn")
+from App.Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
+from App.Models.spiersterkte import SpiersterkteDb, SpiersterkteOut
+from sqlalchemy.orm import Session
+from typing import Optional
 
 
 class ResultaatRepo:
@@ -59,8 +56,6 @@ class ResultaatRepo:
     # read all
     async def GetAll_Resultaat(self) -> list[ResultaatOut]:
         Resultaten = self.db.query(dbmodels.Resultaat).all()
-
-        LOGGER.info(list(map(self.resultaat_db_to_out, Resultaten)))
 
         return list(map(self.resultaat_db_to_out, Resultaten))
 

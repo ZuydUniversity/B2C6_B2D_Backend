@@ -1,5 +1,5 @@
-from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteOut
 from App.Data.Database import get_db
+from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteOut
 from App.Repos.SpiersterkteRepo import SpiersterkteRepo
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -13,7 +13,7 @@ async def GetAll_Spiersterkte(db: Session = Depends(get_db)):
 
 
 @router.get("/{id}", response_model=SpiersterkteOut)
-async def Get_Spiersterkte(id:int, db: Session = Depends(get_db)):
+async def Get_Spiersterkte(id: int, db: Session = Depends(get_db)):
     return await SpiersterkteRepo(db).Get_Spiersterkte(id)
 
 

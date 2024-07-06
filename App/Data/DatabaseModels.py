@@ -1,5 +1,5 @@
 from App.Data.Database import Base
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 
 class Zorgverlener(Base):

@@ -13,7 +13,7 @@ async def GetAll_Resultaat(db: Session = Depends(get_db)):
 
 
 @router.get("/{id}", response_model=ResultaatOut)
-async def Get_Resultaat(id:int, db: Session = Depends(get_db)):
+async def Get_Resultaat(id: int, db: Session = Depends(get_db)):
     return await ResultaatRepo(db).Get_Resultaat(id)
 
 
@@ -23,7 +23,9 @@ async def add_Resultaat(resultaat: ResultaatIn, db: Session = Depends(get_db)):
 
 
 @router.put("/{id}", response_model=ResultaatOut)
-async def update_Resultaat(id: int, resultaat: ResultaatIn, db: Session = Depends(get_db)):
+async def update_Resultaat(
+    id: int, resultaat: ResultaatIn, db: Session = Depends(get_db)
+):
     updated_resultaat = await ResultaatRepo(db).update_Resultaat(id, resultaat)
     if not updated_resultaat:
         raise HTTPException(status_code=404, detail="Resultaat not found")
