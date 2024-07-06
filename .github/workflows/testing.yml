@@ -9,15 +9,15 @@ on:
 
 jobs:
   codeql:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_codeql.yml@Groep-2
+    uses: ./.github/workflows/testing_codeql.yml
   linter:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_linter.yml@Groep-2
-  notify:
-    #needs: [codeql, linter]
-    needs: codeql
+    uses: ./.github/workflows/testing_linter.yml
+  
+  testing-fail-notify:
+    needs: [codeql, linter]
     if: ${{ failure() }}
     uses:
       ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
     secrets: inherit
     with:
-      SLACK_WEBHOOK_TEXT: ":rotating_light: [BACKEND] tests: FAILED, commit info: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|url>, test info: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|url> :rotating_light:"
+      SLACK_WEBHOOK_TEXT: ":rotating_light: [BACKEND] tests: FAILED, commit info: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|url>, workflow info: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|url> :rotating_light:"
