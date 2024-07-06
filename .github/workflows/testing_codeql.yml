@@ -86,14 +86,3 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
-
-  notify:
-    needs: analyze
-    if: ${{ always() }}
-    uses:
-      ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
-    secrets:
-      SLACK_WEBHOOK_URL: ${{secrets.GROEP_2_SLACK_WEBHOOK}}
-    with:
-      SLACK_WEBHOOK_TEXT: "GH workflow `codeql` 1234: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.analyze.result }}>"
-
