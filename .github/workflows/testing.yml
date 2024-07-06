@@ -20,4 +20,4 @@ jobs:
       ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
     secrets: inherit
     with:
-      SLACK_WEBHOOK_TEXT: ":rotating_light: [BACKEND] <https://github.com/ZuydUniversity/B2C6_B2D_Backend/edit/Groep-2/.github/workflows/testing.yml|testing phase> failed: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|commit url> :rotating_light:"
+      SLACK_WEBHOOK_TEXT: ":rotating_light: [BACKEND] <https://github.com/ZuydUniversity/B2C6_B2D_Backend/edit/Groep-2/.github/workflows/testing.yml|testing phase> **FAILED**: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|commit url> :rotating_light:"
