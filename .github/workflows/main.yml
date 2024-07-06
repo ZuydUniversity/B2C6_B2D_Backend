@@ -7,14 +7,6 @@ jobs:
   testing:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing/main.yml@Groep-2
 
-  #build:
-  #  needs: testing
-  #  uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/build.yml@Groep-2
-  #  secrets:
-  #    GROEP_2_DOCKERHUB_USERNAME: ${{ secrets.GROEP_2_DOCKERHUB_USERNAME }}
-  #    GROEP_2_DOCKERHUB_TOKEN: ${{ secrets.GROEP_2_DOCKERHUB_TOKEN }}
-  #    GROEP_2_DOCKERHUB_BACKEND_REPO_NAME: ${{secrets.GROEP_2_DOCKERHUB_BACKEND_REPO_NAME}}
-
   build:
     needs: testing
     uses: ZuydUniversity/B2C6_B2D_IAS/.github/workflows/build_upload_docker.yml@groep-2
