@@ -9,3 +9,12 @@ jobs:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_codeql.yml@Groep-2
   linter:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing_linter.yml@Groep-2
+  notify:
+    needs: [codeql, linter]
+    if: ${{ failure() }}
+    uses:
+      ZuydUniversity/B2C6_B2D_IAS/.github/workflows/send_slack_webhook.yml@groep-2
+    secrets:
+      SLACK_WEBHOOK_URL: ${{secrets.GROEP_2_SLACK_WEBHOOK}}
+    with:
+      SLACK_WEBHOOK_TEXT: "GH workflow `testing.yml` failed: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|commit url>"
