@@ -6,8 +6,7 @@ on:
 jobs:
   testing:
     uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
-    secrets:
-      GROEP_2_SLACK_WEBHOOK: ${{ secrets.GROEP_2_SLACK_WEBHOOK }}
+    secrets: inherit
 
   build:
     needs: testing
