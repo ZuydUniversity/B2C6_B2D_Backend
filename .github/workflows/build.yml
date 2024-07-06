@@ -1,0 +1,31 @@
+name: build
+
+on:
+  workflow_call:
+    secrets:
+      GROEP_2_DOCKERHUB_USERNAME:
+        required: true
+      GROEP_2_DOCKERHUB_TOKEN:
+        required: true
+      GROEP_2_DOCKERHUB_BACKEND_REPO_NAME:
+        required: true
+
+jobs:
+  create_docker_image:
+    runs-on: ubuntu-latest
+    steps:
+        - name: get codebase
+          uses: actions/checkout@v3
+
+        - name: Docker Login
+          uses: docker/login-action@v3
+          with:
+            username: ${{secrets.GROEP_2_DOCKERHUB_USERNAME}}
+            password: ${{secrets.GROEP_2_DOCKERHUB_TOKEN}}
+    
+        - name: Build And Push
+          uses: docker/build-push-action@v5
+          with:
+            context: .
+            push: true
+            tags: ${{secrets.GROEP_2_DOCKERHUB_USERNAME}}/${{secrets.GROEP_2_DOCKERHUB_BACKEND_REPO_NAME}}:latest
