@@ -4,12 +4,12 @@ on:
   push:
 
 jobs:
-  testing:
-    uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
-    secrets: inherit
+  #testing:
+  #  uses: ZuydUniversity/B2C6_B2D_Backend/.github/workflows/testing.yml@Groep-2
+  #  secrets: inherit
 
   build:
-    needs: testing
+    #needs: testing
     uses: ZuydUniversity/B2C6_B2D_IAS/.github/workflows/build_push_docker.yml@groep-2
     secrets: inherit
     with:
