@@ -95,5 +95,5 @@ jobs:
     secrets:
       SLACK_WEBHOOK_URL: ${{secrets.GROEP_2_SLACK_WEBHOOK}}
     with:
-      SLACK_WEBHOOK_TEXT: "GH workflow `codeql` 123: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.analyze.result }}>"
+      SLACK_WEBHOOK_TEXT: "GH workflow `codeql` 1234: <${{ github.event.pull_request.html_url || github.event.head_commit.url }}|${{ needs.analyze.result }}>"
 
