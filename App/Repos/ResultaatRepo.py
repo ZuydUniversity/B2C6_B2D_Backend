@@ -1,8 +1,9 @@
+from typing import Optional
+
 from App.Data import DatabaseModels as dbmodels
-from App.Models.resultaat import ResultaatIn, ResultaatDb, ResultaatOut
+from App.Models.resultaat import ResultaatDb, ResultaatIn, ResultaatOut
 from App.Models.spiersterkte import SpiersterkteDb, SpiersterkteOut
 from sqlalchemy.orm import Session
-from typing import Optional
 
 
 class ResultaatRepo:

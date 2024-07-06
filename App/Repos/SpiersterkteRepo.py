@@ -1,7 +1,8 @@
-from App.Data import DatabaseModels as dbmodels
-from App.Models.spiersterkte import SpiersterkteIn, SpiersterkteDb
-from sqlalchemy.orm import Session
 from typing import Optional
+
+from App.Data import DatabaseModels as dbmodels
+from App.Models.spiersterkte import SpiersterkteDb, SpiersterkteIn
+from sqlalchemy.orm import Session
 
 
 class SpiersterkteRepo:
