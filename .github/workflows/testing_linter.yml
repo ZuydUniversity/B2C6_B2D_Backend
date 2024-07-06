@@ -4,10 +4,10 @@ on:
   workflow_call:
 
 jobs:
-  main:
-    name: Run linters
-    runs-on: ubuntu-latest
-
+  testing_linter:
+    runs-on: ubuntu-latest        
     steps:
       - uses: actions/checkout@v3
       - uses: super-linter/super-linter@v5.7.2
+        env: 
+              GITHUB_TOKEN: ${{Secrets.GITHUB_TOKEN}}
