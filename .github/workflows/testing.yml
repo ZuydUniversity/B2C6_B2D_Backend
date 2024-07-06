@@ -12,7 +12,8 @@ jobs:
     uses: ./.github/workflows/testing_codeql.yml
   linter:
     uses: ./.github/workflows/testing_linter.yml
-  notify:
+  
+  testing-fail-notify:
     needs: [codeql, linter]
     if: ${{ failure() }}
     uses:
