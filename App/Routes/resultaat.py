@@ -4,7 +4,7 @@ from App.Repos.ResultaatRepo import ResultaatRepo
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-router = APIRouter(prefix="/resultaten")
+router = APIRouter(prefix="/resultaten1234")
 
 
 @router.get("/", response_model=list[ResultaatOut])
